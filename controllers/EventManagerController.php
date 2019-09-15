@@ -4,10 +4,12 @@ namespace app\controllers;
 
 use Yii;
 use app\models\Event;
+use app\models\Team;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Model;
 
 /**
  * EventManagerController implements the CRUD actions for Event model.
@@ -66,12 +68,39 @@ class EventManagerController extends Controller
     {
         $model = new Event();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+
+             $modelsTeam = Model::createMultiple(Team::classname());
+             Model::loadMultiple($modelsTeam, Yii::$app->request->post());
+
+             // validate all models
+             $valid = $model->validate();
+             $valid = Model::validateMultiple($modelsTeam) && $valid;
+
+             if ($valid) {
+                 $transaction = \Yii::$app->db->beginTransaction();
+                 try {
+                     if ($flag = $model->save(false)) {
+                         foreach ($modelsTeam as $modelTeam) {
+                             $modelTeam->event_id   = $model->id;
+                             if (! ($flag = $modelTeam->save(false))) {
+                                $transaction->rollBack();
+                                 break;
+                             }
+                         }
+                     }
+                     if ($flag) {
+                        return $this->redirect(['view', 'id' => $model->id,]);
+                     }
+                 }catch (Exception $e) {
+                     $transaction->rollBack();
+                 }
+             }
         }
 
         return $this->render('create', [
             'model' => $model,
+            'modelsTeam' => (empty($modelsTeam)) ? [new Team] : $modelsTeam,
         ]);
     }
 

@@ -18,6 +18,7 @@ class m190915_102310_create_volunteer_table extends Migration
             'user_id'=> $this->integer()->notNull(),
             'volunteer_type'=> $this->integer()->notNull()
         ]);
+        $this->addForeignKey('fk-team-volunteer','volunteer','team_id','team','id','CASCADE');
     }
 
     /**

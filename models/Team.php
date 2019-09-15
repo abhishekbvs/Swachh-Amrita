@@ -32,8 +32,8 @@ class Team extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['event_id', 'team_name', 'place_name', 'description'], 'required'],
-            [['event_id', 'team_size'], 'integer'],
+            [['team_name', 'place_name', 'description'], 'required'],
+            [['team_size'], 'integer'],
             [['team_name', 'place_name', 'description'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['event_id' => 'id']],
         ];

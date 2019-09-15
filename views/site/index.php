@@ -51,3 +51,19 @@ $this->title = 'Home - Swachh Amrita';
 
     </div>
 </div> -->
+
+<div class="site-index">
+    <div class = "row">
+        <div class = "col-md-6">
+        
+        
+        </div>
+        <div class ="col-md-6">
+
+
+        </div>
+
+    </div>
+
+
+</div>

@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\Event;
 use app\models\Team;
+use app\models\Volunteer;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -67,6 +68,9 @@ class EventManagerController extends Controller
     public function actionCreate()
     {
         $model = new Event();
+        $modelsTeam = [new Team];
+        $modelsVolunteer = [[new Volunteer]];
+        $model->user_id = Yii::$app->user->getId();
 
         if ($model->load(Yii::$app->request->post())) {
 
@@ -77,21 +81,55 @@ class EventManagerController extends Controller
              $valid = $model->validate();
              $valid = Model::validateMultiple($modelsTeam) && $valid;
 
+             if (isset($_POST['Volunteer'][0][0])) {
+                foreach ($_POST['Volunteer'] as $indexTeam => $volunteers) {
+                    foreach ($volunteers as $indexVolunteer => $volunteer) {
+                        $data['Volunteer'] = $volunteer;
+                        $modelVolunteer = new Volunteer;
+                        $modelVolunteer->load($data);
+                        $modelsVolunteer[$indexTeam][$indexVolunteer] = $modelVolunteer;
+                        $valid = $modelVolunteer->validate();
+                    }
+                }
+            }
+   
              if ($valid) {
                  $transaction = \Yii::$app->db->beginTransaction();
                  try {
                      if ($flag = $model->save(false)) {
-                         foreach ($modelsTeam as $modelTeam) {
-                             $modelTeam->event_id   = $model->id;
-                             if (! ($flag = $modelTeam->save(false))) {
+                         foreach ($modelsTeam as $indexTeam => $modelTeam) {
+
+                            if($flag == false){
+                                break;
+                            }
+
+                            $modelTeam->event_id = $model->id;
+
+                            if (! ($flag = $modelTeam->save(false))) {
                                 $transaction->rollBack();
                                  break;
                              }
+
+                             if (isset($modelsVolunteer[$indexTeam]) && is_array($modelsVolunteer[$indexTeam])) {
+                                foreach ($modelsVolunteer[$indexTeam] as $indexVolunteer => $modelVolunteer) {
+                                    $modelVolunteer->team_id = $modelTeam->id;
+                                    if (!($flag = $modelVolunteer->save(false))) {
+                                        break;
+                                    }
+                                }
+                            }
+
+
+
                          }
                      }
                      if ($flag) {
-                        return $this->redirect(['view', 'id' => $model->id,]);
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
                      }
+                    else{
+                        $transaction->rollBack();
+                    }
                  }catch (Exception $e) {
                      $transaction->rollBack();
                  }
@@ -101,6 +139,7 @@ class EventManagerController extends Controller
         return $this->render('create', [
             'model' => $model,
             'modelsTeam' => (empty($modelsTeam)) ? [new Team] : $modelsTeam,
+            'modelsVolunteer' => (empty($modelsVolunteer)) ? [new Volunteer] : $modelsVolunteer,
         ]);
     }
 

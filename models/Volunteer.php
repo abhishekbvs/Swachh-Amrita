@@ -11,6 +11,8 @@ use Yii;
  * @property int $team_id
  * @property int $user_id
  * @property int $volunteer_type
+ *
+ * @property Team $team
  */
 class Volunteer extends \yii\db\ActiveRecord
 {
@@ -28,8 +30,9 @@ class Volunteer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['team_id', 'user_id', 'volunteer_type'], 'required'],
-            [['team_id', 'user_id', 'volunteer_type'], 'integer'],
+            [['user_id', 'volunteer_type'], 'required'],
+            [['user_id', 'volunteer_type'], 'integer'],
+            [['team_id'], 'exist', 'skipOnError' => true, 'targetClass' => Team::className(), 'targetAttribute' => ['team_id' => 'id']],
         ];
     }
 
@@ -44,5 +47,13 @@ class Volunteer extends \yii\db\ActiveRecord
             'user_id' => 'User ID',
             'volunteer_type' => 'Volunteer Type',
         ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTeam()
+    {
+        return $this->hasOne(Team::className(), ['id' => 'team_id']);
     }
 }

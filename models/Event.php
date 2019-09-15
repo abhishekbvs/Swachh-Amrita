@@ -35,8 +35,8 @@ class Event extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'title', 'description', 'from_datetime', 'to_datetime'], 'required'],
-            [['user_id', 'publish', 'close_reg', 'end_event'], 'integer'],
+            [['title', 'description', 'from_datetime', 'to_datetime'], 'required'],
+            [['publish', 'close_reg', 'end_event'], 'integer'],
             [['title', 'description'], 'string', 'max' => 255],
             [['from_datetime', 'to_datetime'], 'string', 'max' => 100],
             [['user_id'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['user_id' => 'id']],

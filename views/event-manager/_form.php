@@ -14,11 +14,9 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php $form = ActiveForm::begin( ['id' => 'dynamic-form'] ); ?>
 
-    <?= $form->field($model, 'user_id')->textInput() ?>
-
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'description')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'description')->textarea(['rows' => 3]) ?>
 
     <?php
       date_default_timezone_set('Asia/Kolkata');
@@ -45,14 +43,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
      		]
  		]);
  	   ?>
-    <div class="panel panel-default">
-                <div class="panel-heading"><h4><i class="glyphicon glyphicon-envelope"></i> Teams Details</h4></div>
-                <div class="panel-body">
-                            <?php DynamicFormWidget::begin([
+
+    <?php DynamicFormWidget::begin([
                                 'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
                                 'widgetBody' => '.container-items', // required: css class selector
                                 'widgetItem' => '.item', // required: css class
-                                'limit' => 4, // the maximum times, an element can be cloned (default 999)
+                                'limit' => 20, // the maximum times, an element can be cloned (default 999)
                                 'min' => 1, // 0 or 1 (default 1)
                                 'insertButton' => '.add-item', // css class
                                 'deleteButton' => '.remove-item', // css class
@@ -64,10 +60,13 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     'description',
                                     'team_size'
                                 ],
-                            ]); ?>
+    ]); ?>
 
-                            <div class="container-items"><!-- widgetContainer -->
-                                      <?php foreach ($modelsTeam as $i => $modelTeam): ?>
+    <div class="panel panel-default">
+                <div class="panel-heading"></div>
+                <div class="panel-body">
+                           <div class="container-items"><!-- widgetContainer -->
+                                      <?php foreach ($modelsTeam as $indexTeam => $modelTeam): ?>
                                           <div class="item panel panel-default"><!-- widgetBody -->
                                               <div class="panel-heading">
                                                   <h3 class="panel-title pull-left">Team</h3>
@@ -81,20 +80,25 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                   <?php
                                                       // necessary for update action.
                                                       if (! $modelTeam->isNewRecord) {
-                                                          echo Html::activeHiddenInput($modelTeam, "[{$i}]event_id");
+                                                          echo Html::activeHiddenInput($modelTeam, "[{$indexTeam}]id");
                                                       }
                                                   ?>
-                                                  <?= $form->field($modelTeam, "[{$i}]team_name")->textInput(['maxlength' => true]) ?>
-                                                  <?= $form->field($modelTeam, "[{$i}]place_name")->textInput(['maxlength' => true]) ?>
-                                                  <?= $form->field($modelTeam, "[{$i}]description")->textarea(['rows' => 2]) ?>
-                                                  <?= $form->field($modelTeam, "[{$i}]team_size")->textInput(['maxlength' => true]) ?>
+                                                  <?= $form->field($modelTeam, "[{$indexTeam}]team_name")->textInput(['maxlength' => true]) ?>
+                                                  <?= $form->field($modelTeam, "[{$indexTeam}]place_name")->textInput(['maxlength' => true]) ?>
+                                                  <?= $form->field($modelTeam, "[{$indexTeam}]description")->textarea(['rows' => 2]) ?>
+                                                  <?= $form->field($modelTeam, "[{$indexTeam}]team_size")->textInput(['maxlength' => true]) ?>
+                                                  <?= $this->render('_form-volunteer', [
+                                                            'form' => $form,
+                                                            'indexTeam' => $indexTeam,
+                                                            'modelsVolunteer' => $modelsVolunteer[$indexTeam],
+                                                        ]) ?>
                                               </div>
                                           </div>
                                     <?php endforeach; ?>
                             </div>
-                            <?php DynamicFormWidget::end(); ?>
-                </div>
-   </div>
+                 </div>
+        </div>
+        <?php DynamicFormWidget::end(); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

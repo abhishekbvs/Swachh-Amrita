@@ -4,11 +4,13 @@ namespace app\controllers;
 
 use Yii;
 use yii\filters\AccessControl;
+use app\models\Event;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
 {
@@ -61,7 +63,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $dataProvider = new ActiveDataProvider([
+            'query' => Event::find()->where(['publish' => False]),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

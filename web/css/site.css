@@ -123,6 +123,8 @@ a.desc:after {
 .vector-img{
     max-width: 100%;
     height: auto;
+    padding-top: 150px;
+    padding-bottom: 150px;
 }
 .logo-amrita{
     width: 170px;

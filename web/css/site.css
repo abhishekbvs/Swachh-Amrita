@@ -8,6 +8,7 @@ body {
     height: auto;
     margin: 0 auto -60px;
     padding: 0 0 60px;
+
 }
 
 .wrap > .container {
@@ -16,9 +17,9 @@ body {
 
 .footer {
     height: 60px;
-    background-color: #f5f5f5;
+    /* background-color: #fff; */
     border-top: 1px solid #ddd;
-    padding-top: 20px;
+    padding-top: 10px;
 }
 
 .jumbotron {
@@ -112,4 +113,22 @@ a.desc:after {
 
 .nav > li > form > button.logout:focus {
     outline: none;
+}
+
+.ab{
+    display: flex;
+    align-items: center;
+}
+
+.vector-img{
+    max-width: 100%;
+    height: auto;
+}
+.logo-amrita{
+    width: 170px;
+    padding-left: 10px;
+}
+
+.logo-bharath{
+    width:85px;   
 }

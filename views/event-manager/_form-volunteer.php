@@ -19,15 +19,10 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     'volunteer_type',
                                 ],
 ]); ?>
-
- <div class="panel panel-default">
-                <div class="panel-heading"></div>
-                <div class="panel-body">
-                            
-
-                            <div class="container-volunteers"><!-- widgetContainer -->
+                <div class="panel-body">                     
+                            <div class="container-volunteers">
                                       <?php foreach ($modelsVolunteer as $indexVolunteer => $modelVolunteer): ?>
-                                          <div class="volunteer-item panel panel-default"><!-- widgetBody -->
+                                          <div class="volunteer-item panel panel-default">
                                               <div class="panel-heading">
                                                   <h3 class="panel-title pull-left">Volunteer</h3>
                                                   <div class="pull-right">
@@ -38,19 +33,24 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                               </div>
                                               <div class="panel-body">
                                                   <?php
-                                                      // necessary for update action.
+                                                    
                                                       if (! $modelVolunteer->isNewRecord) {
                                                           echo Html::activeHiddenInput($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]id");
                                                       }
                                                   ?>
-                                                  <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]user_id")->textInput(['maxlength' => true]) ?>
-                                                  <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]volunteer_type")->textInput(['maxlength' => true]) ?>
-                                                  
+                                                    <div class = "row">
+                                                        <div class = "col-md-6">
+                                                            <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]user_id")->textInput(['maxlength' => true]) ?>                                                
+                                                        </diV>
+                                                        <div class = "col-md-6">
+                                                            <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]volunteer_type")->textInput(['maxlength' => true]) ?>
+                                                        </diV>                                            
+                                                    </div>
                                               </div>
                                           </div>
                                     <?php endforeach; ?>
                             </div>
                            
                 </div>
-   </div>
+                
    <?php DynamicFormWidget::end(); ?>

@@ -76,6 +76,23 @@ class UserController extends Controller
         return $this->render('create', [ 'model' => $model ]);
     }
 
+
+    public function actionDash()
+    {
+        if(Yii::$app->user->can('admin')){
+            return $this->render('admin_dash');
+        }
+        else if(Yii::$app->user->can('event-manager')){
+            return $this->render('event_manager_dash');
+        }
+        else if(Yii::$app->user->can('volunteer')){
+            return $this->render('volunteer_dash');
+        }
+        else if(Yii::$app->user->can('participant')){
+            return $this->render('participant_dash');
+        }
+    }
+
     /**
      * Updates an existing User model.
      * If update is successful, the browser will be redirected to the 'view' page.

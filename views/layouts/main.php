@@ -40,21 +40,24 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+            ['label' => 'Documentation', 'url' => 'https://swachh-amrita.gitbook.io/swachh-amrita/'],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => 'Signup', 'url' => ['/user/create']]
+                ) : (
+                    ['label' => 'Dashboard', 'url' => ['/user/dash']]
+                ),
+            Yii::$app->user->isGuest ? (
+                ['label' => 'Signin', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    'Logout (' . Yii::$app->user->identity->name . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+                ),
         ],
     ]);
     NavBar::end();
@@ -71,7 +74,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Team One EVS <?= date('Y') ?></p>
+        <p class="pull-left">&copy; Team One EVS <?= date('Y')?><?= Html::a('Contact', ['/site/contact'], ['class' => 'btn btn-link']);?>us for any queries</p>
         <div class="pull-right"><img class="logo-amrita" src="<?php echo Yii::$app->request->baseUrl; ?>/images/amrita.png" type="image/png" /></div>
         <div class="pull-right"><img class="logo-bharath" src="<?php echo Yii::$app->request->baseUrl; ?>/images/swachh-bharath.png" type="image/png" /></div>
     </div>

@@ -80,14 +80,14 @@ class SiteController extends Controller
      */
     public function actionEvent($id)
     {
-        $eventModel = new ActiveDataProvider([
-            'query' => Event::find([])->where(['id' => $id]),
-        ]);
+        $query = Event::find()->where(['id' => $id])->all();
+        $eventModel = $query[0];
+    
         
         
         
         $teamsModel = new ActiveDataProvider([
-            'query' => Team::find([])->where(['event_id'=>$id]),
+            'query' => Team::find()->where(['event_id'=>$id]),
         ]);
         
         
@@ -97,6 +97,7 @@ class SiteController extends Controller
             'dataTeams'=> $teamsModel,
         ]);
     }
+    
 
     /**
      * Login action.

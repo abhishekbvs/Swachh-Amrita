@@ -15,14 +15,14 @@ use yii\helpers\Html;
                     <font size="10">  <?= $model->team_size ?></font>
                     <p> Total Seats</p>
                 </div>
-                <?= Html::a('REVERT', ['event/confirm','id'=>$model->id], ['class' => 'btn btn-danger btn-group-justified']);?>
+                <?= Html::a('DETAILS', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
             </div>
             <div class = "col-md-3">
                 <div class = "panel panel-primary"  style="text-align:center; padding:2px;">
                     <font size="10">  <?= $model->team_size ?></font>
                     <p> Seats left</p>
                 </div>
-                <?= Html::a('REGISTER', ['event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']);?>
+                <?= Html::a('REGISTER', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']);?>
             </div>
         </div>
     </div>

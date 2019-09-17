@@ -11,6 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use app\models\Model;
+use app\models\Registration;
 
 /**
  * EventManagerController implements the CRUD actions for Event model.
@@ -163,6 +164,11 @@ class EventManagerController extends Controller
         ]);
     }
 
+    public function actionRegister($id)
+    {
+        $model = new Registration();
+        $model->user_id = Yii::$app->user->getId();
+    }
     /**
      * Deletes an existing Event model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

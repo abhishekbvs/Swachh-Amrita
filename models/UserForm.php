@@ -31,6 +31,8 @@ class UserForm extends Model
             ['roll_no','required'],
 
             ['phone_no','required'],
+            ['phone_no','integer'],
+            ['phone_no','string','max'=>10,'min'=>10,'tooShort'=>'Should be 10 digit long' , 'tooLong' => 'Should be 10 digit long'],
 
             ['username', 'trim'],
             ['username', 'required'],

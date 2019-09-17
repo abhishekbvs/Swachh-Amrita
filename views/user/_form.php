@@ -13,24 +13,44 @@ use app\models\User;
 <div class="user-form">
 
     <?php $form = ActiveForm::begin(); ?>
+        <div class="container-fluid">
+             <div class = "row">
+                <div class="col-md-4">
+                    <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'email_id')->textInput(['autofocus' => true]) ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+                </div>
+                <div class="col-md-4">
+                    <?= $form->field($model, 'password')->passwordInput() ?>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <?= $form->field($model, 'phone_no')->textInput(['autofocus' => true]) ?>
+                </div>
+                <div class="col-md-4">
+                <?= $form->field($model, 'roll_no')->textInput(['autofocus' => true]) ?>
+                </div>
+            </div>
 
-       <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
+        
+        
+
+        
+
        
-       <?= $form->field($model, 'email_id')->textInput(['autofocus' => true]) ?>
-
-       <?= $form->field($model, 'password')->passwordInput() ?>
-
-       <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
-
-       <?= $form->field($model, 'roll_no')->textInput(['autofocus' => true]) ?>
-
-       <?= $form->field($model, 'phone_no')->textInput(['autofocus' => true]) ?>
 
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <div class="form-group">
+            <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        </div>
     </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

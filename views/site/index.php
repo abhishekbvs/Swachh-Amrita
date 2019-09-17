@@ -10,7 +10,7 @@ $this->title = "Home - Swachh Amrita"
             <h3>Participate, Clean and Prosper</h3>
             <h5>Come, Join Us. Roll for the events listed and support us to clean our mother earth.</h5>
             <br>
-            <br>
+           
             <div class="event-index">
 
 
@@ -21,7 +21,7 @@ $this->title = "Home - Swachh Amrita"
                             'label'=>'Event',
                             'format'=>'raw',
                             'value' => function ($data) {
-                                return Html::a($data['title'],['event/'.$data['id']]);
+                                return Html::a($data['title'],['site/event','id'=>$data['id']]);
                            },
                            'contentOptions'=>[ 'style'=>'height: 50px'],
 
@@ -33,12 +33,13 @@ $this->title = "Home - Swachh Amrita"
                             'format'=>'raw',
                             'value' => function ($data) {
                                     if($data['close_reg']){
-                                        return Html::a('CLOSE', ['event/'.$data['id']], ['class' => 'btn btn-danger', 'disabled' => 'disabled']);
+                                        return Html::a('CLOSED', ['site/event','id'=>$data['id']], ['class' => 'btn btn-group-justified btn-danger']);
                                     }
                                     else{
-                                       return Html::a('OPEN', ['event/'.$data['id']], ['class' => 'btn btn-success']);
+                                       return Html::a('OPEN', ['site/event','id'=>$data['id']], ['class' => 'btn btn-group-justified btn-success']);
                                     }
                             },
+                            'contentOptions'=>[ 'style'=>'width: 50px'],
                         ],
                     ],
                 ]); ?>

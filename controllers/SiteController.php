@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use yii\filters\AccessControl;
 use app\models\Event;
+use app\models\Team;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
@@ -69,6 +70,31 @@ class SiteController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    /**
+     * Displays Event Information.
+     *
+     * @return string
+     */
+    public function actionEvent($id)
+    {
+        $eventModel = new ActiveDataProvider([
+            'query' => Event::find([])->where(['id' => $id]),
+        ]);
+        
+        
+        
+        $teamsModel = new ActiveDataProvider([
+            'query' => Team::find([])->where(['event_id'=>$id]),
+        ]);
+        
+        
+        
+        return $this->render('event',[
+            'dataEvent'=> $eventModel,
+            'dataTeams'=> $teamsModel,
         ]);
     }
 

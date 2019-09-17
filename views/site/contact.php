@@ -20,7 +20,7 @@ $this->title = 'Contact';
             Thank you for contacting us. We will respond to you as soon as possible.
         </div>
 
-        <p>
+        <!-- <p>
             Note that if you turn on the Yii debugger, you should be able
             to view the mail message on the mail panel of the debugger.
             <?php if (Yii::$app->mailer->useFileTransport): ?>
@@ -29,7 +29,7 @@ $this->title = 'Contact';
                 Please configure the <code>useFileTransport</code> property of the <code>mail</code>
                 application component to be false to enable email sending.
             <?php endif; ?>
-        </p>
+        </p> -->
 
     <?php else: ?>
 

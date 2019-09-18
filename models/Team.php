@@ -3,6 +3,7 @@
 namespace app\models;
 
 use Yii;
+use app\models\Volunteer;
 
 /**
  * This is the model class for table "team".
@@ -32,7 +33,7 @@ class Team extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['team_name', 'place_name', 'description'], 'required'],
+            [['team_name', 'place_name'], 'required'],
             [['team_size'], 'integer'],
             [['team_name', 'place_name', 'description'], 'string', 'max' => 255],
             [['event_id'], 'exist', 'skipOnError' => true, 'targetClass' => Event::className(), 'targetAttribute' => ['event_id' => 'id']],
@@ -60,5 +61,10 @@ class Team extends \yii\db\ActiveRecord
     public function getEvent()
     {
         return $this->hasOne(Event::className(), ['id' => 'event_id']);
+    }
+
+    public function getVolunteers($id)
+    {
+        return Volunteer::find()->where(['team_id' => $id])->all();
     }
 }

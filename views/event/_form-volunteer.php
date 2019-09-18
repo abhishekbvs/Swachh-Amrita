@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use wbraganca\dynamicform\DynamicFormWidget;
+use yii\helpers\ArrayHelper;
+use app\models\User;
 
 ?>
 <?php DynamicFormWidget::begin([
@@ -40,10 +42,16 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                   ?>
                                                     <div class = "row">
                                                         <div class = "col-md-6">
-                                                            <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]user_id")->textInput(['maxlength' => true]) ?>                                                
+                                                        <?php
+                                                                $userList = ArrayHelper::map(User::find(['id','name'])->all(), 'id', 'name');
+                                                                    echo $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]user_id")->dropDownList($userList,
+                                                                [  'prompt' => 'Choose User',
+                                                                ]);
+                                                            ?>
                                                         </diV>
                                                         <div class = "col-md-6">
-                                                            <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]volunteer_type")->textInput(['maxlength' => true]) ?>
+                                                            <?php $volList = [ 1 => 'Overall Coordinator', 2 => 'Team Coordinator', 3 =>'Tools Coordinator', 4 => 'Refreshment Coordinator'];?>
+                                                            <?= $form->field($modelVolunteer, "[{$indexTeam}][{$indexVolunteer}]volunteer_type")->dropDownList($volList,['prompt' => 'Choose Volunteer type'])?>
                                                         </diV>                                            
                                                     </div>
                                               </div>

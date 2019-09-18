@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use app\models\Team;
 use Yii;
 
 /**
@@ -67,5 +68,15 @@ class Event extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['id' => 'user_id']);
+    }
+
+    public function getTeam()
+    {
+        return $this->hasMany(NtroVisitor::className(), ['visitorpass_id' => 'visitorpass_id']);
+    }
+
+    public function getTeams($id)
+    {
+      return Team::find()->where(['event_id' => $id])->all();
     }
 }

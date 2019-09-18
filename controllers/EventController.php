@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 use app\models\Event;
 use app\models\Team;
 use app\models\Volunteer;
@@ -14,9 +15,9 @@ use app\models\Model;
 use app\models\Registration;
 
 /**
- * EventManagerController implements the CRUD actions for Event model.
+ * EventController implements the CRUD actions for Event model.
  */
-class EventManagerController extends Controller
+class EventController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -144,6 +145,20 @@ class EventManagerController extends Controller
         ]);
     }
 
+    public function actionTeam($id)
+    {
+        $query = Team::find()->where(['id' => $id])->all();
+        $modelTeam = $query[0]; 
+        $modelVolunteers =  new ActiveDataProvider([
+            'query' =>Volunteer::find()  
+            // ->select('user.*')           
+            // ->leftJoin('user','user.id = volunteer.user_id')
+            ->where(['volunteer.team_id'=> $modelTeam->id]),
+        ]);
+                        
+        return $this->render('team',['dataTeam' => $modelTeam,'dataVolunteers'=>$modelVolunteers]);
+    }
+
     /**
      * Updates an existing Event model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -154,13 +169,101 @@ class EventManagerController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $modelsTeam = $model->getTeams($id);
+        $modelsVolunteer = [];
+        $oldVolunteers = [];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if (!empty($modelsTeam)) {
+            foreach ($modelsTeam as $indexTeam => $modelTeam) {
+                $volunteers = $modelTeam->getVolunteers($modelTeam->id);;
+                $modelsVolunteer[$indexTeam] = $volunteers;
+                $oldVolunteers = ArrayHelper::merge(ArrayHelper::index($volunteers, 'id'), $oldVolunteers);
+            }
+        }
+
+        if ($model->load(Yii::$app->request->post())) {
+
+            // reset
+            $modelsVolunteer = [];
+
+            $oldTeamIDs = ArrayHelper::map($modelsTeam, 'id', 'id');
+            $modelsTeam = Model::createMultiple(Team::classname(), $modelsTeam);
+            Model::loadMultiple($modelsTeam, Yii::$app->request->post());
+            $deletedTeamIDs = array_diff($oldTeamIDs, array_filter(ArrayHelper::map($modelsTeam, 'id', 'id')));
+
+            // validate event and Teams models
+            $valid = $model->validate();
+            $valid = Model::validateMultiple($modelsTeam) && $valid;
+
+            $VolunteersIDs = [];
+            if (isset($_POST['Volunteer'][0][0])) {
+                foreach ($_POST['Volunteer'] as $indexTeam => $Volunteers) {
+                    $VolunteersIDs = ArrayHelper::merge($VolunteersIDs, array_filter(ArrayHelper::getColumn($Volunteers, 'id')));
+                    foreach ($Volunteers as $indexVolunteer => $Volunteer) {
+                        $data['Volunteer'] = $Volunteer;
+                        $modelVolunteer = (isset($Volunteer['id']) && isset($oldVolunteers[$Volunteer['id']])) ? $oldVolunteers[$Volunteer['id']] : new Volunteer;
+                        $modelVolunteer->load($data);
+                        $modelsVolunteer[$indexTeam][$indexVolunteer] = $modelVolunteer;
+                        $valid = $modelVolunteer->validate();
+                    }
+                }
+            }
+
+            $oldVolunteersIDs = ArrayHelper::getColumn($oldVolunteers, 'id');
+            $deletedVolunteersIDs = array_diff($oldVolunteersIDs, $VolunteersIDs);
+
+            if ($valid) {
+                $transaction = Yii::$app->db->beginTransaction();
+                try {
+                    if ($flag = $model->save(false)) {
+
+                        if (! empty($deletedVolunteersIDs)) {
+                            Volunteer::deleteAll(['id' => $deletedVolunteersIDs]);
+                        }
+
+                        if (! empty($deletedTeamIDs)) {
+                            Team::deleteAll(['id' => $deletedTeamIDs]);
+                        }
+
+                        foreach ($modelsTeam as $indexTeam => $modelTeam) {
+
+                            if ($flag === false) {
+                                break;
+                            }
+
+                            $modelTeam->event_id = $model->id;
+
+                            if (!($flag = $modelTeam->save(false))) {
+                                break;
+                            }
+
+                            if (isset($modelsVolunteer[$indexTeam]) && is_array($modelsVolunteer[$indexTeam])) {
+                                foreach ($modelsVolunteer[$indexTeam] as $indexVolunteer => $modelVolunteer) {
+                                    $modelVolunteer->Team_id = $modelTeam->id;
+                                    if (!($flag = $modelVolunteer->save(false))) {
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+
+                    if ($flag) {
+                        $transaction->commit();
+                        return $this->redirect(['view', 'id' => $model->id]);
+                    } else {
+                        $transaction->rollBack();
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                }
+            }
         }
 
         return $this->render('update', [
             'model' => $model,
+            'modelsTeam' => (empty($modelsTeam)) ? [new Team] : $modelsTeam,
+            'modelsVolunteer' => (empty($modelsVolunteer)) ? [[new Volunteer]] : $modelsVolunteer
         ]);
     }
 

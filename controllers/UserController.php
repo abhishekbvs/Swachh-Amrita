@@ -5,6 +5,7 @@ namespace app\controllers;
 use Yii;
 use app\models\User;
 use app\models\UserForm;
+use app\models\Event;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -79,11 +80,14 @@ class UserController extends Controller
 
     public function actionDash()
     {
-        if(Yii::$app->user->can('admin')){
-            return $this->render('admin_dash');
-        }
-        else if(Yii::$app->user->can('event-manager')){
-            return $this->render('event_manager_dash');
+        // if(Yii::$app->user->can('admin')){
+        //     return $this->render('admin_dash');
+        // }
+        if(Yii::$app->user->can('event-manager')){
+            $eventsModel = new ActiveDataProvider([
+                'query' => Event::find()->where(['user_id'=>Yii::$app->user->getId()]),
+            ]);
+            return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
         }
         else if(Yii::$app->user->can('volunteer')){
             return $this->render('volunteer_dash');

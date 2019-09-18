@@ -44,7 +44,7 @@ class Volunteer extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'team_id' => 'Team ID',
-            'user_id' => 'User ID',
+            'user_id' => 'Volunteer Username',
             'volunteer_type' => 'Volunteer Type',
         ];
     }

@@ -9,8 +9,12 @@ use wbraganca\dynamicform\DynamicFormWidget;
 /* @var $model app\models\Event */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-
+<div class = "row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+        <h1><?= Html::encode($this->title) ?></h1>
 <div class="event-form">
+
    
     <?php $form = ActiveForm::begin( ['id' => 'dynamic-form'] ); ?>
     <div class = "container-fluid">
@@ -70,7 +74,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     'team_size'
                                 ],
     ]); ?>
-
+    
                 <div class="panel-body">
                            <div class="container-items"><!-- widgetContainer -->
                                       <?php foreach ($modelsTeam as $indexTeam => $modelTeam): ?>
@@ -90,6 +94,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                           echo Html::activeHiddenInput($modelTeam, "[{$indexTeam}]id");
                                                       }
                                                   ?>
+                                                 
                                                     <div class="row">
                                                         <div class="col-md-9">
                                                             <?= $form->field($modelTeam, "[{$indexTeam}]team_name")->textInput(['maxlength' => true]) ?>
@@ -98,6 +103,7 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                                              <?= $form->field($modelTeam, "[{$indexTeam}]team_size")->textInput(['type' =>'number']) ?>    
                                                         </div>
                                                     </div>
+                                                      
                                                   <?= $form->field($modelTeam, "[{$indexTeam}]place_name")->textInput(['maxlength' => true]) ?>
                                                   <?= $form->field($modelTeam, "[{$indexTeam}]description")->textarea(['rows' => 2]) ?>
                                                   <?= $this->render('_form-volunteer', [
@@ -110,6 +116,8 @@ use wbraganca\dynamicform\DynamicFormWidget;
                                     <?php endforeach; ?>
                             </div>
                  </div>
+        </div>
+        
         <?php DynamicFormWidget::end(); ?>
 
     <div class="form-group">
@@ -118,4 +126,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
 
     <?php ActiveForm::end(); ?>
 
+</div>
+<div class="col-md-2"></div>
 </div>

@@ -1,7 +1,5 @@
 <?php
 use yii\helpers\Html;
-use yii\widgets\DetailView;
-
 use yii\widgets\ListView;
 
 $this->title = "Event - Swachh Amrita"

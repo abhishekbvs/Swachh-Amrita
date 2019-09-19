@@ -71,30 +71,33 @@ class UserController extends Controller
         $model = new UserForm();
         if ($model->load(Yii::$app->request->post())) {
            if($user = $model->createUser()){
-              return $this->redirect(['view', 'id' => $user->id]);
+              return $this->redirect(['/site/login']);
            }
         }
         return $this->render('create', [ 'model' => $model ]);
     }
 
 
-    public function actionDash()
+    public function actionDashEventManager()
     {
-        // if(Yii::$app->user->can('admin')){
-        //     return $this->render('admin_dash');
-        // }
-        if(Yii::$app->user->can('event-manager')){
-            $eventsModel = new ActiveDataProvider([
-                'query' => Event::find()->where(['user_id'=>Yii::$app->user->getId()]),
-            ]);
-            return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
-        }
-        else if(Yii::$app->user->can('volunteer')){
-            return $this->render('volunteer_dash');
-        }
-        else if(Yii::$app->user->can('participant')){
-            return $this->render('participant_dash');
-        }
+        $eventsModel = new ActiveDataProvider([
+            'query' => Event::find()->where(['user_id'=>Yii::$app->user->getId()]),
+        ]);
+        return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
+    }
+
+    public function actionDashAdmin()
+    {
+        $dataUsers = new ActiveDataProvider([
+            'query' => User::find(),
+        ]);
+        return $this->render('admin_dash',['dataUsers'=>$dataUsers]);
+    }
+
+    public function actionDashParticipant()
+    {
+
+        
     }
 
     /**

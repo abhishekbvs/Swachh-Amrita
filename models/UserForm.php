@@ -32,6 +32,7 @@ class UserForm extends Model
 
             ['phone_no','required'],
             ['phone_no','integer'],
+            ['phone_no', 'unique', 'targetClass' => '\app\models\User', 'message' => 'This phone no has already been taken.'],
             ['phone_no','string','max'=>10,'min'=>10,'tooShort'=>'Should be 10 digit long' , 'tooLong' => 'Should be 10 digit long'],
 
             ['username', 'trim'],
@@ -84,6 +85,10 @@ class UserForm extends Model
         $user->setPassword($this->password);
         $user->generateAuthKey();
         $user = $user->save() ? $user : null;
+        $auth = new DbManager;
+        $auth->init();
+        $role = $auth->getRole('participant');
+        $auth->assign($role, $user->id);
        
         return $user;
 

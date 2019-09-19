@@ -41,11 +41,23 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'Documentation', 'url' => 'https://swachh-amrita.gitbook.io/swachh-amrita/'],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Signup', 'url' => ['/user/create']]
+            
+            Yii::$app->user->can('admin') ? (
+                ['label' => 'Dashboard - Admin', 'url' => ['/user/dash-admin']]
+            ) : (
+                Yii::$app->user->can('event-manager') ? (
+                    ['label' => 'Dashboard - Event Manager', 'url' => ['/user/dash-event-manager']]
                 ) : (
-                    ['label' => 'Dashboard', 'url' => ['/user/dash']]
-                ),
+                    Yii::$app->user->can('volunteer') ? (
+                        ['label' => 'Dashboard - Event Manager', 'url' => ['/user/dash-volunteer']]
+                    ) :(
+                        Yii::$app->user->can('participant') ? (
+                            ['label' => 'Dashboard - Participant', 'url' => ['/user/dash-participant']]
+                        ) : (['label' => 'Signup', 'url' => ['/user/create']])
+                    )
+                )
+            ),
+
             Yii::$app->user->isGuest ? (
                 ['label' => 'Signin', 'url' => ['/site/login']]
             ) : (
@@ -57,7 +69,7 @@ AppAsset::register($this);
                 )
                 . Html::endForm()
                 . '</li>'
-                ),
+                ),            
         ],
     ]);
     NavBar::end();

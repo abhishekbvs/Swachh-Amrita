@@ -7,15 +7,16 @@ use yii\widgets\DetailView;
 /* @var $model app\models\Event */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Events', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-\yii\web\YiiAsset::register($this);
 ?>
 <div class="event-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
+    <h1><?= Html::encode($this->title)?></h1>
+    <p class="pull-left">Detailed view of the Event</p>
+    <p class="pull-right">
+        <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default']);?>
+        <?= Html::a('Publish', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success']);?>
+        <?= Html::a('Close Reg', ['/event/close','id'=>$model->id], ['class' => 'btn btn-danger']);?>
+        <?= Html::a('End Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning']);?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -29,8 +30,6 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
-            'id',
-            'user_id',
             'title',
             'description',
             'from_datetime',

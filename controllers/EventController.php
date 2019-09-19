@@ -82,7 +82,6 @@ class EventController extends Controller
              $modelsTeam = Model::createMultiple(Team::classname());
              Model::loadMultiple($modelsTeam, Yii::$app->request->post());
 
-             // validate all models
              $valid = $model->validate();
              $valid = Model::validateMultiple($modelsTeam) && $valid;
 
@@ -123,9 +122,6 @@ class EventController extends Controller
                                     }
                                 }
                             }
-
-
-
                          }
                      }
                      if ($flag) {
@@ -186,7 +182,6 @@ class EventController extends Controller
 
         if ($model->load(Yii::$app->request->post())) {
 
-            // reset
             $modelsVolunteer = [];
 
             $oldTeamIDs = ArrayHelper::map($modelsTeam, 'id', 'id');
@@ -194,7 +189,6 @@ class EventController extends Controller
             Model::loadMultiple($modelsTeam, Yii::$app->request->post());
             $deletedTeamIDs = array_diff($oldTeamIDs, array_filter(ArrayHelper::map($modelsTeam, 'id', 'id')));
 
-            // validate event and Teams models
             $valid = $model->validate();
             $valid = Model::validateMultiple($modelsTeam) && $valid;
 
@@ -272,8 +266,31 @@ class EventController extends Controller
 
     public function actionRegister($id)
     {
-        $model = new Registration();
-        $model->user_id = Yii::$app->user->getId();
+        $modelTeam = Team::findOne($id);
+        if ( $modelTeam == null) {
+            return $this->redirect(['/site/index']);
+        }
+        $count = Registration::find()->where(['user_id'=> Yii::$app->user->getId(),'event_id'=> $modelTeam->event_id])->count();
+        if( $count == 0){
+            $vacant = $modelTeam->team_size - Registration::find()->where(['team_id'=> $id])->count();
+            if($vacant){
+                $model = new Registration();
+                $model->user_id = Yii::$app->user->getId();
+                $model->team_id = $id;
+                $model->event_id = $modelTeam->event_id;
+                $model->created_at = new \yii\db\Expression('NOW()');
+                $model->save();
+                return $this->redirect(['/user/dash-participant']);
+            }
+            else{
+                return $this->redirect(['/site/event','id'=>$modelTeam->event_id]);
+            }
+
+        }
+        else {
+            return $this->redirect(['/user/dash-participant']);
+        }
+        
     }
     /**
      * Deletes an existing Event model.

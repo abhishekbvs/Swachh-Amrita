@@ -97,7 +97,8 @@ class UserController extends Controller
     public function actionDashParticipant()
     {
 
-        
+        return $this->render('participant_dash');
+
     }
 
     /**

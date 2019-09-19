@@ -56,10 +56,7 @@ class EventController extends Controller
      * @throws NotFoundHttpException if the model cannot be found
      */
     public function actionView($id)
-    {
-        
-        
-        
+    {         
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
@@ -270,6 +267,9 @@ class EventController extends Controller
         if ( $modelTeam == null) {
             return $this->redirect(['/site/index']);
         }
+        if($this->findModel($modelTeam->event_id)->close_reg){
+            return $this->redirect(['/site/index']);
+        }
         $count = Registration::find()->where(['user_id'=> Yii::$app->user->getId(),'event_id'=> $modelTeam->event_id])->count();
         if( $count == 0){
             $vacant = $modelTeam->team_size - Registration::find()->where(['team_id'=> $id])->count();
@@ -292,6 +292,47 @@ class EventController extends Controller
         }
         
     }
+
+    public function actionPublish($id)
+    {
+        $model = $this->findModel($id);
+        if($model->publish){
+            $model->publish = False;
+        }
+        else{
+            $model->publish = True;
+        }
+        
+        $model->save(False);
+        return $this->redirect(['view','id'=>$id]);
+    }
+
+    public function actionCloseReg($id)
+    {
+        $model = $this->findModel($id);
+        if($model->close_reg){
+            $model->close_reg = False;
+        }
+        else{
+            $model->close_reg = True;
+        }
+        $model->save(False);
+        return $this->redirect(['view','id'=>$id]);
+    }
+
+    public function actionEnd($id)
+    {
+        $model = $this->findModel($id);
+        if($model->end_event){
+            $model->end_event = False;
+        }
+        else{
+            $model->end_event = True;
+        }
+        $model->save(False);
+        return $this->redirect(['view','id'=>$id]);
+    }
+
     /**
      * Deletes an existing Event model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

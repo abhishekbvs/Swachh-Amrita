@@ -14,7 +14,7 @@ use yii\helpers\Html;
                     <font size="10">100</font>
                     <p> Total Seats</p>
             </div>
-            <?= Html::a('DETAIL VIEW', ['/event/view','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+            <?= Html::a('Detail View', ['/event/view','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
         </div>
 
         <div class = "col-md-2">
@@ -22,21 +22,25 @@ use yii\helpers\Html;
                     <font size="10"> 50 </font>
                     <p>Seats left</p>
             </div>
-            <?= Html::a('REGISTRATIONS', ['site/event','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+            <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
         </div>
         
         <div class = "col-md-2">
             <div class = "row" style="padding:2px;">
-                <?= Html::a('PUBLISH EVENT', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']);?>
+                
+                <?= $model->publish ?(Html::a('Unpublish Event', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified'])):( 
+                    Html::a('Publish Event', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']));?>
             </div>
             <div class = "row" style="padding:2px;">
-                <?= Html::a('CLOSE REG', ['/event/close','id'=>$model->id], ['class' => 'btn btn-danger btn-group-justified']);?>
+                <?= $model->close_reg ?(Html::a('Open Registrations', ['/event/close-reg','id'=>$model->id], ['class' => 'btn btn-danger btn-group-justified'])):(
+                    Html::a('Close Registrations', ['/event/close-reg','id'=>$model->id], ['class' => 'btn btn-danger btn-group-justified']));?>
             </div>
             <div class = "row" style="padding:2px;">
-                <?= Html::a('END EVENT', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning btn-group-justified']);?>
+                <?= $model->close_reg ? (Html::a('Reopen Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning btn-group-justified'])):(
+                    Html::a('End Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning btn-group-justified']));?>
             </div>
             <div class = "row" style="padding:2px;">
-                <?= Html::a('UPDATE EVENT', ['/event/update','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                <?= Html::a('Update Event', ['/event/update','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
             </div>
         </div>
     </div>

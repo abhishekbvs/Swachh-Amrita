@@ -18,7 +18,7 @@ use Yii;
  * @property int $close_reg
  * @property int $end_event
  *
- * @property User $user
+ * @property User $user 
  */
 class Event extends \yii\db\ActiveRecord
 {

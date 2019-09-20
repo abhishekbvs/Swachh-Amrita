@@ -19,6 +19,8 @@ use app\models\Volunteer;
  */
 class Team extends \yii\db\ActiveRecord
 {
+    public $seats_left;
+    
     /**
      * {@inheritdoc}
      */

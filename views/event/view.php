@@ -14,9 +14,12 @@ $this->title = $model->title;
     <p class="pull-left">Detailed view of the Event</p>
     <p class="pull-right">
         <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default']);?>
-        <?= Html::a('Publish', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success']);?>
-        <?= Html::a('Close Reg', ['/event/close','id'=>$model->id], ['class' => 'btn btn-danger']);?>
-        <?= Html::a('End Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning']);?>
+        <?= $model->publish ?(Html::a('Unpublish Event', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success'])):( 
+                    Html::a('Publish Event', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success']));?>
+         <?= $model->close_reg ?(Html::a('Open Registrations', ['/event/close-reg','id'=>$model->id], ['class' => 'btn btn-danger'])):(
+                    Html::a('Close Registrations', ['/event/close-reg','id'=>$model->id], ['class' => 'btn btn-danger']));?>
+        <?= $model->end_event ? (Html::a('Reopen Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning'])):(
+                    Html::a('End Event', ['/event/end','id'=>$model->id], ['class' => 'btn btn-warning']));?>
         <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -34,10 +37,27 @@ $this->title = $model->title;
             'description',
             'from_datetime',
             'to_datetime',
-            'publish',
-            'close_reg',
-            'end_event',
+            [
+                'label' => "Event Published",
+                'value' => function ($data){
+                    return $data->publish ? 'Yes' : 'No';
+                }
+            ],
+            [
+                'label' => "Registrations Closed",
+                'value' => function ($data){
+                    return $data->publish ? 'Yes' : 'No';
+                }
+            ],
+            [
+                'label' => "Event Ended",
+                'value' => function ($data){
+                    return $data->publish ? 'Yes' : 'No';
+                }
+            ],
         ],
     ]) ?>
+
+    
 
 </div>

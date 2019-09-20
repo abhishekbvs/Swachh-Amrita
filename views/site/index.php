@@ -4,17 +4,14 @@ use yii\grid\GridView;
 
 $this->title = "Home - Swachh Amrita"
 ?>
-<div class = "h-100 row ab">
-        <div class = "col-sm-6 col-xs-12">
-            <h1>SWACHH AMRITA</h1>
-            <h3>Participate, Clean and Prosper</h3>
-            <h5>Come, Join Us. Roll for the events listed and support us to clean our mother earth.</h5>
+<div class = "ab">
+        <div class = "col-md-6">
+            <h1 id = "title"> Swachh Amrita</h1>
+            <h4 id = "tag">PARTICIPATE, CLEAN & FLOURISH</h4>
+            <h5 id = "desc">Come, Join Us. Roll for the events listed and support us to clean our mother earth.</h5>
             <br>
            
-            <div class="event-index">
-
-
-                <?= GridView::widget([
+            <?= GridView::widget([
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         [
@@ -27,7 +24,6 @@ $this->title = "Home - Swachh Amrita"
 
                         ],
                         'from_datetime',
-                        'to_datetime',
                         [
                             'label' => 'Registrations',
                             'format'=>'raw',
@@ -44,13 +40,8 @@ $this->title = "Home - Swachh Amrita"
                     ],
                 ]); ?>
 
-
-            </div>
-
-
-
         </div>
-        <div class ="col-sm-6 col-xs-12">
+        <div class ="col-md-6">
             <img class="vector-img" src="<?php echo Yii::$app->request->baseUrl; ?>/images/vector.png" type="image/png" />
 
         </div>

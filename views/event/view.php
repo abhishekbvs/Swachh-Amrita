@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\grid\GridView;
+use app\models\User;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -72,6 +74,54 @@ $this->title = $model->title;
                 </div>
         </div>
      </div>
+    <?php foreach ($modelsTeam as $indexTeam => $modelTeam) :?>
+    <div class = "row">
+            <div class = "col-md-6">
+            <h3 class="pull-left"> Team <?= $indexTeam+1 ?></h3>
+            <h3 class="pull-right"><?= Html::a('Show Registrations', ['view', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></h3>
+                <?= DetailView::widget([
+                    'model' => $modelTeam,
+                    'attributes' => [
+                        'team_name',
+                        'place_name',
+                        'description',
+                        'team_size',
+                    ],
+                ]) ?>
+            </div> 
+            <div class ="col-md-6">
+            <h4>Volunteers</h4>
+                <?= GridView::widget([
+                    'dataProvider' => $modelsVolunteer[$indexTeam],
+                    'columns' => [
+                        ['class' => 'yii\grid\SerialColumn'],
+                        [
+                            'label' => "Volunteer Name",
+                            'value' => function ($data){
+                                $user = User::find()->select(['name'])->where(['id' => $data->user_id])->one();
+                                return $user->name;
+                            }
+                        ],
+                        [
+                            'label' => "Phone No",
+                            'value' => function ($data){
+                                $user = User::find()->select(['phone_no'])->where(['id' => $data->user_id])->one();
+                                return $user->phone_no;
+                            }
+                        ],
+                        [
+                            'label' => "Role",
+                            'value' => function ($data){
+                                $list = [ 1 => 'Overall Coordinator', 2 => 'Team Coordinator', 3 =>'Tools Coordinator', 4 => 'Refreshment Coordinator'];
+                                return $list[$data->volunteer_type];
+                            }
+                        ],
+
+                    ],
+                ]); ?>
+            </div>
+    </div>                    
+    <?php endforeach; ?>
 
 
 

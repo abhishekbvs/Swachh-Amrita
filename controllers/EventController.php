@@ -8,6 +8,7 @@ use app\models\Event;
 use app\models\Team;
 use app\models\Volunteer;
 use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -249,11 +250,14 @@ class EventController extends Controller
 
         if (!empty($modelsTeam)) {
             foreach ($modelsTeam as $indexTeam => $modelTeam) {
-                $volunteers = $modelTeam->getVolunteers($modelTeam->id);;
+                // $volunteers = $modelTeam->getVolunteers($modelTeam->id);
+                $volunteers = new ActiveDataProvider([
+                    'query'=> Volunteer::find()->where(['team_id' => $modelTeam->id])
+                ]);
                 $modelsVolunteer[$indexTeam] = $volunteers;
             }
         }
-        
+
         return $this->render('view', [
             'model' => $model,
             'modelsTeam' => $modelsTeam,

@@ -50,19 +50,6 @@ class EventController extends Controller
     }
 
     /**
-     * Displays a single Event model.
-     * @param integer $id
-     * @return mixed
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionView($id)
-    {         
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
      * Creates a new Event model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -139,20 +126,6 @@ class EventController extends Controller
             'modelsTeam' => (empty($modelsTeam)) ? [new Team] : $modelsTeam,
             'modelsVolunteer' => (empty($modelsVolunteer)) ? [new Volunteer] : $modelsVolunteer,
         ]);
-    }
-
-    public function actionTeam($id)
-    {
-        $query = Team::find()->where(['id' => $id])->all();
-        $modelTeam = $query[0]; 
-        $modelVolunteers =  new ActiveDataProvider([
-            'query' =>Volunteer::find()  
-            // ->select('user.*')           
-            // ->leftJoin('user','user.id = volunteer.user_id')
-            ->where(['volunteer.team_id'=> $modelTeam->id]),
-        ]);
-                        
-        return $this->render('team',['dataTeam' => $modelTeam,'dataVolunteers'=>$modelVolunteers]);
     }
 
     /**
@@ -261,6 +234,47 @@ class EventController extends Controller
         ]);
     }
 
+    /**
+     * Displays a single Event model.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException if the model cannot be found
+     */
+    public function actionView($id)
+    {    
+
+        $model = $this->findModel($id);
+        $modelsTeam = $model->getTeams($id);
+        $modelsVolunteer = [];
+
+        if (!empty($modelsTeam)) {
+            foreach ($modelsTeam as $indexTeam => $modelTeam) {
+                $volunteers = $modelTeam->getVolunteers($modelTeam->id);;
+                $modelsVolunteer[$indexTeam] = $volunteers;
+            }
+        }
+        
+        return $this->render('view', [
+            'model' => $model,
+            'modelsTeam' => $modelsTeam,
+            'modelsVolunteer' => $modelsVolunteer
+        ]);
+    }
+
+
+    public function actionTeam($id)
+    {
+        $query = Team::find()->where(['id' => $id])->all();
+        $modelTeam = $query[0]; 
+        $modelVolunteers =  new ActiveDataProvider([
+            'query' =>Volunteer::find()  
+            // ->select('user.*')           
+            // ->leftJoin('user','user.id = volunteer.user_id')
+            ->where(['volunteer.team_id'=> $modelTeam->id]),
+        ]);
+                        
+        return $this->render('team',['dataTeam' => $modelTeam,'dataVolunteers'=>$modelVolunteers]);
+    }
     public function actionRegister($id)
     {
         $modelTeam = Team::findOne($id);

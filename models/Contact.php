@@ -3,42 +3,53 @@
 namespace app\models;
 
 use Yii;
-use yii\base\Model;
 
 /**
- * ContactForm is the model behind the contact form.
+ * This is the model class for table "contact".
+ *
+ * @property int $id
+ * @property string $name
+ * @property string $email_id
+ * @property string $subject
+ * @property string $body
  */
-class ContactForm extends Model
+class Contact extends \yii\db\ActiveRecord
 {
-    public $name;
-    public $email;
-    public $subject;
-    public $body;
     public $verifyCode;
 
+    /**
+     * {@inheritdoc}
+     */
+    public static function tableName()
+    {
+        return 'contact';
+    }
 
     /**
-     * @return array the validation rules.
+     * {@inheritdoc}
      */
     public function rules()
     {
         return [
-            // name, email, subject and body are required
-            [['name', 'email', 'subject', 'body'], 'required'],
-            // email has to be a valid email address
-            ['email', 'email'],
-            // verifyCode needs to be entered correctly
+            [['name', 'email_id', 'subject', 'body'], 'required'],
+            [['name', 'email_id'], 'string', 'max' => 50],
+            [['subject'], 'string', 'max' => 100],
+            [['body'], 'string', 'max' => 500],
             ['verifyCode', 'captcha'],
         ];
     }
 
     /**
-     * @return array customized attribute labels
+     * {@inheritdoc}
      */
     public function attributeLabels()
     {
         return [
-            'verifyCode' => 'Verification Code',
+            'id' => 'ID',
+            'name' => 'Name',
+            'email_id' => 'Email ID',
+            'subject' => 'Subject',
+            'body' => 'Body',
         ];
     }
 

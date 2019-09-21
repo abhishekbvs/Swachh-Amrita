@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 use yii\grid\GridView;
 use app\models\User;
+use yii\bootstrap\Modal;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -44,7 +45,7 @@ $this->title = $model->title;
             ],
         ]) ?>
         </div>
-        <div class = "col-md-3">
+        <div class = "col-md-3 " style="padding-left:30px; padding-right:30px;">
                 <div class = "row">
                 <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
                 </div>
@@ -122,7 +123,22 @@ $this->title = $model->title;
             </div>
     </div>                    
     <?php endforeach; ?>
-
-
-
 </div>
+
+<?php                 
+
+        Modal::begin([
+
+                'header' => 'Team',
+
+                'id' => 'your-modal',
+
+                'size' => 'modal-md',
+
+            ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+
+?>

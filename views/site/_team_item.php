@@ -1,5 +1,6 @@
 <?php
 use yii\helpers\Html;
+use app\models\Registration;
 ?>
 
 <div class = "col-md-6">
@@ -12,17 +13,17 @@ use yii\helpers\Html;
             </div>
             <div class = "col-md-3">
                 <div class = "panel panel-primary"  style="text-align:center;">
-                    <font size="10">  <?= $model->team_size ?></font>
+                    <font size="10"> <?= $model->team_size ?></font>
                     <p> Total Seats</p>
                 </div>
-                <?= Html::a('DETAILS', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                <?= Html::a('Details', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
             </div>
             <div class = "col-md-3">
                 <div class = "panel panel-primary"  style="text-align:center;">
-                    <font size="10">  <?= $model->team_size ?></font>
+                    <font size="10">  <?= $model->team_size - Registration::find()->where(['team_id' => $model->id])->count() ?></font>
                     <p> Seats left</p>
                 </div>
-                <?= Html::a('REGISTER', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']);?>
+                <?= Html::a('Register', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']);?>
             </div>
         </div>
     </div>

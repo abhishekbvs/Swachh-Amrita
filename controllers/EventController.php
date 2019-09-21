@@ -271,13 +271,16 @@ class EventController extends Controller
         $query = Team::find()->where(['id' => $id])->all();
         $modelTeam = $query[0]; 
         $modelVolunteers =  new ActiveDataProvider([
-            'query' =>Volunteer::find()  
-            // ->select('user.*')           
-            // ->leftJoin('user','user.id = volunteer.user_id')
-            ->where(['volunteer.team_id'=> $modelTeam->id]),
+            'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
+        ]);
+        $modelParticipants = new ActiveDataProvider([
+            'query' => Registration::find()->where(['team_id'=> $modelTeam->id]),
         ]);
                         
-        return $this->render('team',['dataTeam' => $modelTeam,'dataVolunteers'=>$modelVolunteers]);
+        return $this->render('team',[   'dataTeam' => $modelTeam,
+                                        'dataVolunteers'=> $modelVolunteers,
+                                        'dataParticipants' => $modelParticipants,    
+                                    ]);
     }
     public function actionRegister($id)
     {

@@ -15,32 +15,23 @@ $this->title = 'Login';
 
     <p>Please fill out the following fields to login:</p>
 
-    <?php $form = ActiveForm::begin([
-        'id' => 'login-form',
-        'layout' => 'horizontal',
-        'fieldConfig' => [
-            'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
-        ],
-    ]); ?>
+    <?php $form = ActiveForm::begin([]); ?>
+    <div class = "col-md-4">
 
         <?= $form->field($model, 'username')->textInput(['autofocus' => true]) ?>
 
         <?= $form->field($model, 'password')->passwordInput() ?>
 
-        <?= $form->field($model, 'rememberMe')->checkbox([
-            'template' => "<div class=\"col-lg-offset-1 col-lg-3\">{input} {label}</div>\n<div class=\"col-lg-8\">{error}</div>",
-        ]) ?>
+        <?= $form->field($model, 'rememberMe')->checkbox([]) ?>
 
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
+        <div class="row">
+             <?= Html::submitButton('Login', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
         </div>
+         
+        <div class="row">
+            No Account? <strong> <?= Html::a('Create One', ['user/create'], ['class' => 'btn btn-link']);?></strong>
+        </div>
+        <?php ActiveForm::end(); ?>
 
-    <?php ActiveForm::end(); ?>
-
-    <div class="col-lg-offset-1">
-        No Account? <strong> <?= Html::a('Create One', ['user/create'], ['class' => 'btn btn-link']);?></strong>
     </div>
 </div>

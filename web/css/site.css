@@ -127,10 +127,12 @@ a.desc:after {
 .ab{
     display: flex;
     align-items: center;
+    height: 78vh;
 }
 
 .vector-img{
-    height:490px;
+    max-width: 90%;
+    padding:10px;
 }
 .logo-amrita{
     width: 170px;

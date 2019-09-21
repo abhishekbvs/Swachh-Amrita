@@ -16,21 +16,24 @@ $this->title = 'Contact';
 
     <?php if (Yii::$app->session->hasFlash('contactFormSubmitted')): ?>
 
-        <div class="alert alert-success">
-            Thank you for contacting us. We will respond to you as soon as possible.
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">Message Sent</div>
+                <div class="panel-body">
+                    <p><b>Name:</b> <?=$model->name?> </p>
+                    <p><b>Email:</b> <?=$model->email_id?> </p>
+                    <p><b>Subject:</b> <?=$model->subject?> </p>
+                    <p><b>Message:</b> <?=$model->body?> </p>
+                </div>
+            </div>
+            <div class="alert alert-success">
+                Thank you for contacting us. We will respond to you as soon as possible.
+            </div>
         </div>
+    </div>
 
-        <!-- <p>
-            Note that if you turn on the Yii debugger, you should be able
-            to view the mail message on the mail panel of the debugger.
-            <?php if (Yii::$app->mailer->useFileTransport): ?>
-                Because the application is in development mode, the email is not sent but saved as
-                a file under <code><?= Yii::getAlias(Yii::$app->mailer->fileTransportPath) ?></code>.
-                Please configure the <code>useFileTransport</code> property of the <code>mail</code>
-                application component to be false to enable email sending.
-            <?php endif; ?>
-        </p> -->
-
+       
     <?php else: ?>
 
         <p>
@@ -39,13 +42,13 @@ $this->title = 'Contact';
         </p>
 
         <div class="row">
-            <div class="col-lg-5">
+            <div class="col-md-6">
 
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
                     <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
 
-                    <?= $form->field($model, 'email') ?>
+                    <?= $form->field($model, 'email_id') ?>
 
                     <?= $form->field($model, 'subject') ?>
 

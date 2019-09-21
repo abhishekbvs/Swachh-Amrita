@@ -10,7 +10,7 @@ use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
-use app\models\ContactForm;
+use app\models\Contact;
 use yii\data\ActiveDataProvider;
 
 class SiteController extends Controller
@@ -82,12 +82,7 @@ class SiteController extends Controller
     {
         $query = Event::find()->where(['id' => $id])->all();
         $eventModel = $query[0];
-
-        // $teamsModel = Team::find()->where(['event_id'=>$id])->all();
-        // foreach($teamsModel as $teamModel) {
-        //     $teamModel->seats_left = $teamModel->total_size - Registration::find()->where(['event_id'=> $id])->count();
-        // }
-        
+    
         $teamsModel = new ActiveDataProvider([
             'query' => Team::find()->where(['event_id'=>$id]),
         ]);
@@ -140,10 +135,9 @@ class SiteController extends Controller
      */
     public function actionContact()
     {
-        $model = new ContactForm();
-        if ($model->load(Yii::$app->request->post()) && $model->contact(Yii::$app->params['adminEmail'])) {
+        $model = new Contact();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             Yii::$app->session->setFlash('contactFormSubmitted');
-            return $this->refresh();
         }
         return $this->render('contact', [
             'model' => $model,

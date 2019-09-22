@@ -8,25 +8,52 @@ use yii\grid\GridView;
 $this->title = 'Dashboard - Admin'
 ?>
 <div class="user-index">
+    <div class =row>
+        <h1><?= Html::encode($this->title) ?></h1>
+    </div> 
+    
     <div class="row">
-        <h1 class="pull-left"><?= Html::encode($this->title) ?></h1>
-        <h1 class="pull-right"><?= Html::a('Assign a User as Event Manager', ['/rbac/assignment'], ['class' => 'btn btn-warning']);?></h1>
+        <h1 class="pull-left">Queries</h1>
+        <h1 class="pull-right"><?= Html::a('See all Queries', ['/rbac/assignment'], ['class' => 'btn btn-default']);?></h1>
     </div>
-    <h2>Users</h2>
-    <?= GridView::widget([
-        'dataProvider' => $dataUsers,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <br>
+    <div class = "row">
+        <?php foreach($dataContacts as $model):?>
+        <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><?=$model->name?></div>
+                    <div class="panel-body">                 
+                        <p><b>Email:</b> <?=$model->email_id?> </p>
+                        <p><b>Subject:</b> <?=$model->subject?> </p>
+                        <p><b>Message:</b> <?=$model->body?> </p>
+                        <?= Html::a('Resolved', ['/rbac/assignment'], ['class' => 'btn btn-danger pull-right']);?>
+                    </div>
+                </div>
+        </div>
+        <?php endforeach?>
+    </div> 
 
-            'username',
-            'name',
-            'roll_no',
-            'email_id',
-            'phone_no',
-                
-            ['class' => 'yii\grid\ActionColumn',
-              'template' => '{view} {update}'
+    
+    <div class="row">
+        <h1 class="pull-left">Users</h1>
+        <h1 class="pull-right"><?= Html::a('Assign a User as Event Manager', ['/rbac/assignment'], ['class' => 'btn btn-primary']);?></h1>
+    </div>
+    <div class = "row">
+        <?= GridView::widget([
+            'dataProvider' => $dataUsers,
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'username',
+                'name',
+                'roll_no',
+                'email_id',
+                'phone_no',
+                    
+                ['class' => 'yii\grid\ActionColumn',
+                'template' => '{view} {update}'
+                ],
             ],
-        ],
-    ]); ?>
+        ]); ?>
+    </div>
 </div>

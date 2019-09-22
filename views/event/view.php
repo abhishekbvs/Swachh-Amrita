@@ -112,6 +112,7 @@ $this->title = $model->title;
             <div class ="col-md-6">
             <h4>Volunteers</h4>
                 <?= GridView::widget([
+                    'layout' => "{items}\n{pager}",
                     'dataProvider' => $modelsVolunteer[$indexTeam],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],

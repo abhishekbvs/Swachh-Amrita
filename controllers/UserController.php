@@ -6,6 +6,7 @@ use Yii;
 use app\models\User;
 use app\models\UserForm;
 use app\models\Event;
+use app\models\Contact;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -88,16 +89,20 @@ class UserController extends Controller
 
     public function actionDashAdmin()
     {
+        $dataContacts = Contact::find()->where(['resolved'=>False])->all();
         $dataUsers = new ActiveDataProvider([
             'query' => User::find(),
+            'pagination' => [
+                'pageSize' => 10,
+            ],
         ]);
-        return $this->render('admin_dash',['dataUsers'=>$dataUsers]);
+        return $this->render('admin_dash',['dataContacts'=>$dataContacts,'dataUsers'=>$dataUsers]);
     }
 
     public function actionDashParticipant()
     {
-
-        return $this->render('participant_dash');
+        $dataRegs  = Registration::find()->where(['user_id'=>Yii::$app->user->getId()])->all();
+        return $this->render('participant_dash',['dataRegs'=>$dataRegs]);
 
     }
 

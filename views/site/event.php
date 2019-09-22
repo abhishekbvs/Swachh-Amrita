@@ -9,6 +9,7 @@ $this->title = "Event - Swachh Amrita"
 <p><?= $dataEvent->description ?></p>
 <?=
 ListView::widget([
+    'layout' => "{items}\n{pager}",
     'dataProvider' =>$dataTeams,
     'itemView' => '_team_item',    
 ]);

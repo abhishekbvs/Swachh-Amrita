@@ -18,6 +18,7 @@ class m190921_145415_create_contact_table extends Migration
             'email_id' => $this->string(50)->notNull(),
             'subject' => $this->string(100)->notNull(),
             'body' => $this->string(500)->notNull(),
+            'resolved' => $this->boolean()->defaultValue(false)->notNull(),
         ]);
     }
 

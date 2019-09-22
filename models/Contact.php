@@ -12,6 +12,7 @@ use Yii;
  * @property string $email_id
  * @property string $subject
  * @property string $body
+ * @property boolean $resolved
  */
 class Contact extends \yii\db\ActiveRecord
 {
@@ -50,6 +51,7 @@ class Contact extends \yii\db\ActiveRecord
             'email_id' => 'Email ID',
             'subject' => 'Subject',
             'body' => 'Body',
+            'resolved' => 'Resolved'
         ];
     }
 

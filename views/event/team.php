@@ -13,6 +13,7 @@ use app\models\User;
     <div class="col-md-6">
         <br>
         <?= GridView::widget([
+            'layout' => "{items}\n{pager}",
             'dataProvider' => $dataVolunteers,
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
@@ -43,11 +44,11 @@ use app\models\User;
     </div>
 </div>
 <h2>Members</h2>
+<div class="col-md-7">
 <?= GridView::widget([
     'dataProvider' => $dataParticipants,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
-        'id',
         [
             'label' => 'Name',
             'value' => function($data){
@@ -66,3 +67,5 @@ use app\models\User;
     ]
         
 ]);
+?>
+</div>

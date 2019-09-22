@@ -250,7 +250,6 @@ class EventController extends Controller
 
         if (!empty($modelsTeam)) {
             foreach ($modelsTeam as $indexTeam => $modelTeam) {
-                // $volunteers = $modelTeam->getVolunteers($modelTeam->id);
                 $volunteers = new ActiveDataProvider([
                     'query'=> Volunteer::find()->where(['team_id' => $modelTeam->id])
                 ]);
@@ -270,9 +269,9 @@ class EventController extends Controller
     {
         $query = Team::find()->where(['id' => $id])->all();
         $modelTeam = $query[0]; 
-        // $modelVolunteers =  new ActiveDataProvider([
-        //     'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
-        // ]);
+        $modelVolunteers =  new ActiveDataProvider([
+            'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
+        ]);
         $modelParticipants = new ActiveDataProvider([
             'query' => Registration::find()->where(['team_id'=> $modelTeam->id]),
         ]);

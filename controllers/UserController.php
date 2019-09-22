@@ -80,14 +80,6 @@ class UserController extends Controller
     }
 
 
-    public function actionDashEventManager()
-    {
-        $eventsModel = new ActiveDataProvider([
-            'query' => Event::find()->where(['user_id'=>Yii::$app->user->getId()]),
-        ]);
-        return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
-    }
-
     public function actionDashAdmin()
     {
         $dataContacts = Contact::find()->where(['resolved'=>False])->all();
@@ -98,6 +90,19 @@ class UserController extends Controller
             ],
         ]);
         return $this->render('admin_dash',['dataContacts'=>$dataContacts,'dataUsers'=>$dataUsers]);
+    }
+
+
+    public function actionDashEventManager()
+    {
+        $eventsModel = new ActiveDataProvider([
+            'query' => Event::find()->where(['user_id'=>Yii::$app->user->getId()]),
+        ]);
+        return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
+    }
+
+    public function actionDashVolunteer(){
+        
     }
 
     public function actionDashParticipant()

@@ -5,7 +5,6 @@ use yii\widgets\ListView;
 use app\models\Event;
 use app\models\Team;
 use app\models\User;
-use yii\widgets\DetailView;
 
 $user = User::find()->where(['id'=>Yii::$app->user->getId()])->one();
 $this->title = 'Dashboard - Participant'
@@ -17,7 +16,7 @@ $this->title = 'Dashboard - Participant'
             <div class="panel-heading">
                 <div class ="row" style="padding:0px 10px 0px;">
                     <h4 class="pull-left">Profile</h4>
-                    <h4 class="pull-right"><span class="badge badge-warning">Participant</span></h4>
+                    <h4 class="pull-right"><span class="label label-default">Participant</span></h4>
                 </div>
             </div>
             <div class="panel-body">
@@ -62,7 +61,7 @@ $this->title = 'Dashboard - Participant'
                         <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-default btn-group-justified']);?>
                         </div>
                         <div class = "row" style="padding:5px;">
-                            <?= Html::a('Revert Seat', ['/event/dereg','id'=>$event->id], ['class' => 'btn btn-danger btn-group-justified']);?>
+                            <?= Html::a('Backout', ['/event/dereg','id'=>$event->id], ['class' => 'btn btn-danger btn-group-justified']);?>
                         </div>
                     </div>
                 </div>           

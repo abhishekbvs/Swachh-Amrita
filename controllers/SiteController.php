@@ -80,12 +80,8 @@ class SiteController extends Controller
      */
     public function actionEvent($id)
     {
-        $query = Event::find()->where(['id' => $id])->all();
-        $eventModel = $query[0];
-    
-        $teamsModel = new ActiveDataProvider([
-            'query' => Team::find()->where(['event_id'=>$id]),
-        ]);
+        $eventModel = Event::find()->where(['id' => $id])->one();
+        $teamsModel = Team::find()->where(['event_id'=>$id])->all();
         
         return $this->render('event',[
             'dataEvent'=> $eventModel,

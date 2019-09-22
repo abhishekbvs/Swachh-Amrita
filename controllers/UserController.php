@@ -6,6 +6,7 @@ use Yii;
 use app\models\User;
 use app\models\UserForm;
 use app\models\Event;
+use app\models\Team;
 use app\models\Registration;
 use app\models\Contact;
 use yii\data\ActiveDataProvider;
@@ -101,8 +102,10 @@ class UserController extends Controller
         return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
     }
 
-    public function actionDashVolunteer(){
-        
+    public function actionDashVolunteer()
+    {    
+        $teamsModel = Team::find();
+        return $this->render('volunteer_dash',['dataTeams'=>$teamsModel]);
     }
 
     public function actionDashParticipant()

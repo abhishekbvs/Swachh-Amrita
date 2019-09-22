@@ -12,7 +12,7 @@ $this->title = 'Dashboard - Event Manager';
             <div class="panel-heading">
                 <div class ="row" style="padding:0px 10px 0px;">
                     <h4 class="pull-left">Profile</h4>
-                    <h4 class="pull-right"><span class="badge badge-warning">Event Manager</span></h4>
+                    <h4 class="pull-right"><span class="label label-default">Event Manager</span></h4>
                 </div>
             </div>
             <div class="panel-body">
@@ -35,6 +35,7 @@ $this->title = 'Dashboard - Event Manager';
 
     <div class = "col-md-9" style="padding: 0px 30px 0px;" >
         <div class = "row">
+            <h2 class="pull-left"> Created Events</h2>
             <h2 class="pull-right"><?= Html::a('Create a new Event', ['/event/create'], ['class' => 'btn btn-success']);?></h2>
         </div>
         <div class = "row" >

@@ -43,16 +43,16 @@ AppAsset::register($this);
             ['label' => 'Documentation', 'url' => 'https://swachh-amrita.gitbook.io/swachh-amrita/'],
             
             Yii::$app->user->can('admin') ? (
-                ['label' => 'Dashboard - Admin', 'url' => ['/user/dash-admin']]
+                ['label' => 'Dashboard', 'url' => ['/user/dash-admin']]
             ) : (
                 Yii::$app->user->can('event-manager') ? (
-                    ['label' => 'Dashboard - Event Manager', 'url' => ['/user/dash-event-manager']]
+                    ['label' => 'Dashboard', 'url' => ['/user/dash-event-manager']]
                 ) : (
                     Yii::$app->user->can('volunteer') ? (
-                        ['label' => 'Dashboard - Event Manager', 'url' => ['/user/dash-volunteer']]
+                        ['label' => 'Dashboard', 'url' => ['/user/dash-volunteer']]
                     ) :(
                         Yii::$app->user->can('participant') ? (
-                            ['label' => 'Dashboard - Participant', 'url' => ['/user/dash-participant']]
+                            ['label' => 'Dashboard', 'url' => ['/user/dash-participant']]
                         ) : (['label' => 'Signup', 'url' => ['/user/create']])
                     )
                 )
@@ -85,7 +85,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container-fluid">
+    <div class="container">
         <p class="pull-left">&copy; Team One EVS <?= date('Y')?><?= Html::a('Contact us for any queries', ['/site/contact'], ['class' => 'btn btn-link']);?></p>
         <div class="pull-right"><img class="logo-amrita" src="<?php echo Yii::$app->request->baseUrl; ?>/images/amrita.png" type="image/png" /></div>
         <div class="pull-right"><img class="logo-bharath" src="<?php echo Yii::$app->request->baseUrl; ?>/images/swachh-bharath.png" type="image/png" /></div>

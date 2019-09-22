@@ -46,6 +46,7 @@ $this->title = "Home - Swachh Amrita"
             <br>
            
             <?= GridView::widget([
+                    'layout' => "{items}\n{pager}",
                     'dataProvider' => $dataProvider,
                     'columns' => [
                         [
@@ -54,8 +55,6 @@ $this->title = "Home - Swachh Amrita"
                             'value' => function ($data) {
                                 return Html::a($data['title'],['site/event','id'=>$data['id']]);
                            },
-                           'contentOptions'=>[ 'style'=>'height: 50px'],
-
                         ],
                         'from_datetime',
                         [
@@ -63,10 +62,10 @@ $this->title = "Home - Swachh Amrita"
                             'format'=>'raw',
                             'value' => function ($data) {
                                     if($data['close_reg']){
-                                        return Html::a('CLOSED', ['site/event','id'=>$data['id']], ['class' => 'btn btn-group-justified btn-danger']);
+                                        return  '<h4><span class="label label-danger">CLOSED</span></h4>';
                                     }
                                     else{
-                                       return Html::a('OPEN', ['site/event','id'=>$data['id']], ['class' => 'btn btn-group-justified btn-success']);
+                                       return '<h4><span class="label label-success">OPENED</span></h4>';
                                     }
                             },
                             'contentOptions'=>[ 'style'=>'width: 50px'],

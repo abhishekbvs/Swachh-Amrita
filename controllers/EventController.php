@@ -207,7 +207,7 @@ class EventController extends Controller
 
                             if (isset($modelsVolunteer[$indexTeam]) && is_array($modelsVolunteer[$indexTeam])) {
                                 foreach ($modelsVolunteer[$indexTeam] as $indexVolunteer => $modelVolunteer) {
-                                    $modelVolunteer->Team_id = $modelTeam->id;
+                                    $modelVolunteer->team_id = $modelTeam->id;
                                     if (!($flag = $modelVolunteer->save(false))) {
                                         break;
                                     }

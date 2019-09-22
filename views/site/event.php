@@ -1,16 +1,48 @@
 <?php
 use yii\helpers\Html;
 use yii\widgets\ListView;
+use app\models\Registration;
 
 $this->title = "Event - Swachh Amrita"
 ?>
-<h1><?= $dataEvent->title ?></h1>
+<div class = "row">
+    <h1 class="pull-left"><?= $dataEvent->title ?></h1>
+    <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-success">OPENED</span>':'<span class="label label-danger">CLOSED</span>';?></h3>
+</div>
+
 <p class="pull-right"> From <?= $dataEvent->from_datetime ?> to <?= $dataEvent->to_datetime ?></p>
 <p><?= $dataEvent->description ?></p>
-<?=
-ListView::widget([
-    'layout' => "{items}\n{pager}",
-    'dataProvider' =>$dataTeams,
-    'itemView' => '_team_item',    
-]);
-?>
+
+<?php foreach($dataTeams as $model): ?>
+    <?php $seats_left = $model->team_size - Registration::find()->where(['team_id' => $model->id])->count();?>
+    <div class = "col-md-6">
+    <div class = "panel panel-primary" style= "<?= $seats_left ? "background-color: #E5FFCC;": "background-color: #fc888b" ?>" >
+        <div class = "row"  style="padding:10px;" >
+            <div class = "col-md-6">
+                <h2><?= $model->team_name ?><h2>
+                <h4><?= $model->place_name ?></h4>
+                <p><?= $model->description ?></p>
+            </div>
+            <div class = "col-md-3">
+            <div class = "row" style="padding:0px 15px 15px">
+                <div class = "panel panel-primary"  style="text-align:center;">
+                    <font size="10"> <?= $model->team_size ?></font>
+                    <p> Total Seats</p>
+                </div>
+                
+                    <?= Html::a('Details', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                </div>
+            </div>
+            <div class = "col-md-3">
+                <div class = "panel panel-primary"  style="text-align:center;">
+                    <font size="10">  <?= $seats_left ?></font>
+                    <p> Seats left</p>
+                </div>
+                <?= $seats_left ? Html::a('Register', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']):'';?>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<?php endforeach;?>

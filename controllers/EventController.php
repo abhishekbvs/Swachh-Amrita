@@ -270,18 +270,30 @@ class EventController extends Controller
     {
         $query = Team::find()->where(['id' => $id])->all();
         $modelTeam = $query[0]; 
-        $modelVolunteers =  new ActiveDataProvider([
-            'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
-        ]);
+        // $modelVolunteers =  new ActiveDataProvider([
+        //     'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
+        // ]);
         $modelParticipants = new ActiveDataProvider([
             'query' => Registration::find()->where(['team_id'=> $modelTeam->id]),
         ]);
                         
-        return $this->render('team',[   'dataTeam' => $modelTeam,
+        return $this->render('team',['dataTeam' => $modelTeam,
                                         'dataVolunteers'=> $modelVolunteers,
                                         'dataParticipants' => $modelParticipants,    
                                     ]);
     }
+
+    public function actionReg($id){
+
+        $modelParticipants = new ActiveDataProvider([
+            'query' => Registration::find()->where(['team_id'=> $id]),
+        ]);
+
+        if(Yii::$app->request->isAjax){
+            return $this->renderAjax('reg',['dataParticipants' => $modelParticipants]);
+        }
+    }
+    
     public function actionRegister($id)
     {
         $modelTeam = Team::findOne($id);

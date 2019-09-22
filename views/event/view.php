@@ -5,6 +5,7 @@ use yii\widgets\DetailView;
 use yii\grid\GridView;
 use app\models\User;
 use yii\bootstrap\Modal;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Event */
@@ -75,11 +76,25 @@ $this->title = $model->title;
                 </div>
         </div>
      </div>
+     <?php                 
+
+        Modal::begin([
+            'header' => '<h4>Team Members</h4>',
+            'id'     => 'model',
+            'size'   => 'model-lg',
+        ]);
+
+        echo "<div id='modalContent'></div>";
+
+        Modal::end();
+
+    ?>
+         
     <?php foreach ($modelsTeam as $indexTeam => $modelTeam) :?>
     <div class = "row">
             <div class = "col-md-6">
             <h3 class="pull-left"> Team <?= $indexTeam+1 ?></h3>
-            <h3 class="pull-right"><?= Html::a('Show Registrations', ['view', 'id' => $model->id], ['class' => 'btn btn-primary']) ?></h3>
+            <h3 class="pull-right"><?= Html::button('Show Registered Members', ['id' => 'modalButton', 'value' => Url::to(['event/reg','id'=>$modelTeam->id]), 'class' => 'btn btn-primary']) ?></h3>
                 <?= DetailView::widget([
                     'model' => $modelTeam,
                     'attributes' => [
@@ -89,6 +104,10 @@ $this->title = $model->title;
                         'team_size',
                     ],
                 ]) ?>
+
+                
+
+               
             </div> 
             <div class ="col-md-6">
             <h4>Volunteers</h4>
@@ -125,20 +144,4 @@ $this->title = $model->title;
     <?php endforeach; ?>
 </div>
 
-<?php                 
 
-        Modal::begin([
-
-                'header' => 'Team',
-
-                'id' => 'your-modal',
-
-                'size' => 'modal-md',
-
-            ]);
-
-        echo "<div id='modalContent'></div>";
-
-        Modal::end();
-
-?>

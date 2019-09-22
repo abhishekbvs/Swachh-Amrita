@@ -47,6 +47,7 @@ use app\models\User;
     'dataProvider' => $dataParticipants,
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
+        'id',
         [
             'label' => 'Name',
             'value' => function($data){

@@ -40,7 +40,8 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Documentation', 'url' => 'https://swachh-amrita.gitbook.io/swachh-amrita/'],
+            ['label' => 'About', 'url' => ['/site/about']],
+            ['label' => 'Contact', 'url' => ['/site/contact']],
             
             Yii::$app->user->can('admin') ? (
                 ['label' => 'Dashboard', 'url' => ['/user/dash-admin']]

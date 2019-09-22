@@ -85,7 +85,7 @@ AppAsset::register($this);
 </div>
 
 <footer class="footer">
-    <div class="container">
+    <div class="container-fluid">
         <p class="pull-left">&copy; Team One EVS <?= date('Y')?><?= Html::a('Contact us for any queries', ['/site/contact'], ['class' => 'btn btn-link']);?></p>
         <div class="pull-right"><img class="logo-amrita" src="<?php echo Yii::$app->request->baseUrl; ?>/images/amrita.png" type="image/png" /></div>
         <div class="pull-right"><img class="logo-bharath" src="<?php echo Yii::$app->request->baseUrl; ?>/images/swachh-bharath.png" type="image/png" /></div>

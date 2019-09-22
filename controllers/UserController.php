@@ -6,6 +6,7 @@ use Yii;
 use app\models\User;
 use app\models\UserForm;
 use app\models\Event;
+use app\models\Registration;
 use app\models\Contact;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;

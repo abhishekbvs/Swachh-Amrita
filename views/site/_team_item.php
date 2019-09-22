@@ -12,11 +12,14 @@ use app\models\Registration;
                 <p><?= $model->description ?></p>
             </div>
             <div class = "col-md-3">
+            <div class = "row" style="padding:0px 15px 15px">
                 <div class = "panel panel-primary"  style="text-align:center;">
                     <font size="10"> <?= $model->team_size ?></font>
                     <p> Total Seats</p>
                 </div>
-                <?= Html::a('Details', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                
+                    <?= Html::a('Details', ['/event/team','id'=>$model->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                </div>
             </div>
             <div class = "col-md-3">
                 <div class = "panel panel-primary"  style="text-align:center;">

@@ -106,6 +106,9 @@ a.desc:after {
         width: 100%;
         padding: 10px 15px;
     }
+    .footer {
+        height: 120px;
+    }
 }
 
 .nav > li > form > button.logout:focus,

@@ -38,8 +38,7 @@ $this->title = "Home - Swachh Amrita"
     </a>
     </div>
 </div> -->
-
-<div class = "row ab">
+<div class = "row">
         <div class = "col-md-6">
             <h1 id = "title"> Swachh Amrita</h1>
             <h4 id = "tag">PARTICIPATE, CLEAN & FLOURISH</h4>
@@ -81,4 +80,3 @@ $this->title = "Home - Swachh Amrita"
 
         </div>
 </div>
-

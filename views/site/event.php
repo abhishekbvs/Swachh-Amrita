@@ -7,7 +7,7 @@ $this->title = "Event - Swachh Amrita"
 ?>
 <div class = "row">
     <h1 class="pull-left"><?= $dataEvent->title ?></h1>
-    <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-success">OPENED</span>':'<span class="label label-danger">CLOSED</span>';?></h3>
+    <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-danger">CLOSED</span>' : '<span class="label label-success">OPENED</span>';?></h3>
 </div>
 
 <p class="pull-right"> From <?= $dataEvent->from_datetime ?> to <?= $dataEvent->to_datetime ?></p>
@@ -38,7 +38,7 @@ $this->title = "Event - Swachh Amrita"
                     <font size="10">  <?= $seats_left ?></font>
                     <p> Seats left</p>
                 </div>
-                <?= $seats_left ? Html::a('Register', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']):'';?>
+                <?= ($seats_left and !$dataEvent->close_reg) ? Html::a('Register', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']):'';?>
             </div>
         </div>
     </div>

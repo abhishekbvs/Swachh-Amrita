@@ -15,7 +15,7 @@ $this->title = 'Dashboard - Admin'
                 <div class="panel-heading">
                     <div class ="row" style="padding:0px 10px 0px;">
                         <h4 class="pull-left">Profile</h4>
-                        <h4 class="pull-right"><span class="label label-default">Admin</span></h4>
+                        <h4 class="pull-right"><span class="label label-default">Adminstrator</span></h4>
                     </div>
                 </div>
                 <div class="panel-body">
@@ -66,12 +66,11 @@ $this->title = 'Dashboard - Admin'
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
 
-                    'username',
+                    // 'username',
                     'name',
                     'roll_no',
-                    'email_id',
-                    'phone_no',
-                        
+                    // 'email_id',
+                    // 'phone_no',     
                     ['class' => 'yii\grid\ActionColumn',
                     'template' => '{view} {update}'
                     ],

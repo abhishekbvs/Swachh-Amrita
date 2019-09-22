@@ -5,7 +5,7 @@ use app\models\Registration;
 
 $this->title = "Event - Swachh Amrita"
 ?>
-<div class = "row">
+<div class = "row" style="padding:0px 10px 0px;">
     <h1 class="pull-left"><?= $dataEvent->title ?></h1>
     <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-danger">CLOSED</span>' : '<span class="label label-success">OPENED</span>';?></h3>
 </div>

@@ -65,14 +65,10 @@ $this->title = 'Dashboard - Admin'
                 'dataProvider' => $dataUsers,
                 'columns' => [
                     ['class' => 'yii\grid\SerialColumn'],
-
-                    // 'username',
                     'name',
                     'roll_no',
-                    // 'email_id',
-                    // 'phone_no',     
                     ['class' => 'yii\grid\ActionColumn',
-                    'template' => '{view} {update}'
+                    'template' => '{view}'
                     ],
                 ],
             ]); ?>

@@ -58,7 +58,7 @@ $this->title = 'Dashboard - Participant'
                             <?= Html::a('Event Details', ['/site/event','id'=>$event->id], ['class' => 'btn btn-default btn-group-justified']);?>
                         </div>
                         <div class = "row" style="padding:5px;">
-                        <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                        <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-primary btn-group-justified']);?>
                         </div>
                         <div class = "row" style="padding:5px;">
                             <?= Html::a('Backout', ['/event/dereg','id'=>$event->id], ['class' => 'btn btn-danger btn-group-justified']);?>

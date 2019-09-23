@@ -7,7 +7,7 @@ use app\models\Team;
 use app\models\User;
 
 $user = User::find()->where(['id'=>Yii::$app->user->getId()])->one();
-$this->title = 'Dashboard - Participant'
+$this->title = 'Dashboard - Volunteer'
 ?>
 
 <div class = row>   
@@ -40,6 +40,31 @@ $this->title = 'Dashboard - Participant'
     <div class = "col-md-9">
         <h2>Assigned Teams</h2>    
         <br>  
+        <?php foreach($dataTeams as $team) :
+                $event = Event::find()->where(['id'=> $team->event_id])->one();?>
+            <div class = "panel panel-info"> 
+
+                <div class="panel-heading"><h3><?= $event->title ?></h3></div>
+                <div class="panel-body">
+                    <div class = "col-md-9">
+                        <p><?= $event->description ?></p>
+                        <h3><?= $team->team_name?></h3>
+                        <p><?= $team->place_name?></p>
+                    </div>
+                    <div class = "col-md-3">
+                        <div class = "row" style="padding:5px;">
+                            <?= Html::a('Event Details', ['/site/event','id'=>$event->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                        </div>
+                        <div class = "row" style="padding:5px;">
+                        <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-primary btn-group-justified']);?>
+                        </div>
+                        <div class = "row" style="padding:5px;">
+                            <?= Html::a('Take Attendance', ['/event/dereg','id'=>$event->id], ['class' => 'btn btn-success btn-group-justified']);?>
+                        </div>
+                    </div>
+                </div>
+            </div>       `
+        <?php endforeach;?>
     </div>
 </div>
 

@@ -7,6 +7,7 @@ use app\models\User;
 use app\models\UserForm;
 use app\models\Event;
 use app\models\Team;
+use app\models\Volunteer;
 use app\models\Registration;
 use app\models\Contact;
 use yii\data\ActiveDataProvider;
@@ -104,7 +105,11 @@ class UserController extends Controller
 
     public function actionDashVolunteer()
     {    
-        $teamsModel = Team::find();
+        $teams = Volunteer::find()->select(['team_id'])->where(['user_id' => Yii::$app->user->getId()])->all();
+        $teamsModel = [];
+        foreach ($teams as $indexTeam => $team){
+            $teamsModel[$indexTeam] = Team::find()->where(['id'=>$team->team_id])->one();
+        }
         return $this->render('volunteer_dash',['dataTeams'=>$teamsModel]);
     }
 

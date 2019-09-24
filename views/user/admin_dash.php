@@ -58,7 +58,7 @@ $this->title = 'Dashboard - Admin'
         </div> 
         <div class="row">
             <h1 class="pull-left">Users</h1>
-            <h1 class="pull-right"><?= Html::a('Assign a User as Event Manager', ['/rbac/assignment'], ['class' => 'btn btn-primary']);?></h1>
+            <!-- <h1 class="pull-right"><?= Html::a('Assign a User as Event Manager', ['/rbac/assignment'], ['class' => 'btn btn-primary']);?></h1> -->
         </div>
         <div class = "row">
             <?= GridView::widget([
@@ -67,8 +67,14 @@ $this->title = 'Dashboard - Admin'
                     ['class' => 'yii\grid\SerialColumn'],
                     'name',
                     'roll_no',
-                    ['class' => 'yii\grid\ActionColumn',
-                    'template' => '{view}'
+                    [   'class' => 'yii\grid\ActionColumn',
+                        'template' => '{view} {roleButton}',
+                        'buttons' =>[
+                            'roleButton' => function($url, $model, $key) {    
+                                return Html::a('Change Role', ['/rbac/assignment/view','id'=>$key], ['class' => 'btn btn-primary pull-right']);
+                            }
+                        ],
+                        'contentOptions' => [ 'style' => 'width: 20%;' ],
                     ],
                 ],
             ]); ?>

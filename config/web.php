@@ -56,14 +56,13 @@ $config = [
                 ],
             ],
         ],
-        /*
-        'urlManager' => [
-            'enablePrettyUrl' => true,
-            'showScriptName' => false,
-            'rules' => [
-            ],
-        ],
-        */
+        
+        // 'urlManager' => [
+        //     'enablePrettyUrl' => true,
+        //     'showScriptName' => false,
+        //     'rules' => [ ],
+        // ],
+        
     ],
     'modules' => [
         'rbac' => [

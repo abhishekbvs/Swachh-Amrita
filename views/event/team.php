@@ -2,15 +2,16 @@
 use yii\grid\GridView;
 $this->title = 'Team - Swachaa Amrita';
 use app\models\User;
+use kartik\switchinput\SwitchInput;
 ?>
 <div class ="row">
-    <div class = "col-md-6">
+    <div class = "col-md-7">
         <h1><?= $dataTeam->team_name ?></h1>
         <h3><?= $dataTeam->place_name ?></h3>
         <p><?= $dataTeam->description ?></p>
 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-5">
         <br>
         <?= GridView::widget([
             'layout' => "{items}\n{pager}",
@@ -63,7 +64,48 @@ use app\models\User;
                 return $user->roll_no;
             }
         ],
-       
+        [
+            'attribute' => 'Check In',
+            'format' => 'raw',
+            'value' => function($data){
+                    return SwitchInput::widget([
+                        'name' => 'Check In',
+                        'pluginEvents' => [
+                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
+                        ],
+                        'pluginOptions' => [
+                            'size' => 'mini',
+                            'onColor' => 'success',
+                            'offColor' => 'danger',
+                            'onText' => 'Yes',
+                            'offText' => 'No',
+                        ],
+                        'value' => $data->check_in ? TRUE : FALSE,
+                    ]);
+                }
+           
+        ],
+        [
+            'attribute' => 'Check Out',
+            'format' => 'raw',
+            'value' => function($data){
+                    return SwitchInput::widget([
+                        'name' => 'Check Out',
+                        'pluginEvents' => [
+                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
+                        ],
+                        'pluginOptions' => [
+                            'size' => 'mini',
+                            'onColor' => 'success',
+                            'offColor' => 'danger',
+                            'onText' => 'Yes',
+                            'offText' => 'No',
+                        ],
+                        'value' => $data->check_in ? TRUE : FALSE,
+                    ]);
+                }
+           
+        ],
     ]
         
 ]);

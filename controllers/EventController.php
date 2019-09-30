@@ -282,6 +282,23 @@ class EventController extends Controller
                                     ]);
     }
 
+    public function actionAttendance($id)
+    {
+        $query = Team::find()->where(['id' => $id])->all();
+        $modelTeam = $query[0]; 
+        // $modelVolunteers =  new ActiveDataProvider([
+        //     'query' => Volunteer::find()->where(['team_id'=> $modelTeam->id]),
+        // ]);
+        $modelParticipants = new ActiveDataProvider([
+            'query' => Registration::find()->where(['team_id'=> $modelTeam->id]),
+        ]);
+                        
+        return $this->render('attendance',['dataTeam' => $modelTeam,
+                                        // 'dataVolunteers'=> $modelVolunteers,
+                                        'dataParticipants' => $modelParticipants,    
+                                    ]);
+    }
+
     public function actionReg($id){
 
         $modelParticipants = new ActiveDataProvider([
@@ -323,6 +340,15 @@ class EventController extends Controller
             return $this->redirect(['/user/dash-participant']);
         }
         
+    }
+
+    public function actionBackout($id)
+    {
+        $modelReg = Registration::findOne($id);
+        if($modelReg->user_id = Yii::$app->user->getId()){
+            $modelReg->delete();
+            return $this->redirect(['/user/dash-participant']);
+        }
     }
 
     public function actionPublish($id)

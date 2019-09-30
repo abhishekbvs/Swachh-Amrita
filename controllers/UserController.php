@@ -60,6 +60,12 @@ class UserController extends Controller
     {
         $model = $this->findModel($id);
 
+        $roles = array_keys(Yii::$app->authManager->getRolesByUser($id));
+        $model->role = "";
+        for ($i=2;$i<sizeof($roles);$i++){
+            $model->role=$model->role." ".$roles[$i];
+        }
+
         return $this->render('view', [
             'model' => $model,
         ]);

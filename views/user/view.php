@@ -7,24 +7,29 @@ use yii\widgets\DetailView;
 /* @var $model app\models\User */
 
 $this->title = $model->username;
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="user-view">
+    <div class="col-md-8">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>
-        <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
-                'method' => 'post',
-            ],
-        ]) ?>
-    </p>
-
+        <h1>Details of <?= Html::encode($model->name) ?></h1>
+    </div>
+    <div class="col-md-4">
+    <h1>
+         <?= Html::a('Change Role', ['/rbac/assignment/view','id'=>$model->id], ['class' => 'btn btn-warning']); ?>
+        
+            <?= Html::a('Update', ['update', 'id' => $model->id], ['class' => 'btn btn-primary'])."   " ?>
+        
+            <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+                'class' => 'btn btn-danger ',
+                'data' => [
+                    'confirm' => 'Are you sure you want to delete this item?',
+                    'method' => 'post',
+                ],
+            ]) ?>
+            
+    </h1>
+    </div>
+    <div class = "col-md-8">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -32,8 +37,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'email_id',
             'name',
             'roll_no',
-            'phone_no'
+            'phone_no',
+            'role'
         ],
     ]) ?>
+    </div>
 
 </div>

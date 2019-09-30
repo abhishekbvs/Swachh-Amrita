@@ -68,13 +68,13 @@ $this->title = 'Dashboard - Admin'
                     'name',
                     'roll_no',
                     [   'class' => 'yii\grid\ActionColumn',
-                        'template' => '{view} {roleButton}',
-                        'buttons' =>[
-                            'roleButton' => function($url, $model, $key) {    
-                                return Html::a('Change Role', ['/rbac/assignment/view','id'=>$key], ['class' => 'btn btn-primary pull-right']);
-                            }
-                        ],
-                        'contentOptions' => [ 'style' => 'width: 20%;' ],
+                        'template' => '{view}',
+                        // 'buttons' =>[
+                        //     'roleButton' => function($url, $model, $key) {    
+                        //         return Html::a('Change Role', ['/rbac/assignment/view','id'=>$key], ['class' => 'btn btn-primary pull-right']);
+                        //     }
+                        // ],
+                        // 'contentOptions' => [ 'style' => 'width: 20%;' ],
                     ],
                 ],
             ]); ?>

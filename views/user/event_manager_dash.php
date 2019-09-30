@@ -24,7 +24,6 @@ $this->title = 'Dashboard - Event Manager';
                     <div class = "col-md-5" style="padding:10px">
                          <?= Html::a('Edit Details', ['/user/update','id'=>$user->id], ['class' => 'btn btn-default']);?>
                     </div>
-
                     <div class = "col-md-7" style="padding:10px">
                          <?= Html::a('Reset Password', ['/user/change','id'=>$user->id], ['class' => 'btn btn-warning']);?>
                     </div>                                    

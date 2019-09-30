@@ -9,19 +9,21 @@ $seats_left = $total_seats - Registration::find()->where(['event_id'=>$model->id
 <div class = "panel panel-primary"> 
 
     <div class="panel-heading"><h4><?= $model->title ?></h4></div>
-    <div class="panel-body"  style="padding:10px; padding-right:20px;">
+    <div class="panel-body"  style="padding-right:20px;">
         <div class = "row"  >
             <div class = "col-md-6">
                 <p>From <strong><?= $model->from_datetime ?></strong> to <strong><?= $model->to_datetime ?></strong></p>
                 <p><?= $model->description ?></p>
-                <h5><strong>Total Teams:</strong> <?= $seats_left?></h5>
+                <h5><strong>Total Teams:</strong> <?= $total_teams?></h5>
             </div>
             <div class = "col-md-2">
                 <div class = "panel panel-primary"  style="text-align:center; padding:2px;">
                         <font size="10"><?= $total_seats ?></font>
                         <p> Total Seats</p>
                 </div>
-                <?= Html::a('Detail View', ['/event/view','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                <div class="row" style="padding: 0px 15px 15px">
+                     <?= Html::a('Detail View', ['/event/view','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                </div>
             </div>
 
             <div class = "col-md-2">
@@ -29,10 +31,13 @@ $seats_left = $total_seats - Registration::find()->where(['event_id'=>$model->id
                         <font size="10"><?= $seats_left ?></font>
                         <p>Seats left</p>
                 </div>
-                <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                <div class="row" style="padding: 0px 15px 15px">
+                    <?= Html::a('Registrations', ['site/event','id'=>$model->id], ['class' => 'btn btn-default btn-group-justified']);?>
+                </div>
+                
             </div>
             
-            <div class = "col-md-2" style="padding-left:25px; padding-right:25px;">
+            <div class = "col-md-2" style="padding-left:20px; padding-right:20px;">
                 <div class = "row" style="padding:2px;">
                     
                     <?= $model->publish ?(Html::a('Unpublish Event', ['/event/publish','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified'])):( 

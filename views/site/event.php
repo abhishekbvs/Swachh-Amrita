@@ -10,8 +10,10 @@ $this->title = "Event - Swachh Amrita"
     <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-danger">CLOSED</span>' : '<span class="label label-success">OPENED</span>';?></h3>
 </div>
 
-<p class="pull-right"> From <?= $dataEvent->from_datetime ?> to <?= $dataEvent->to_datetime ?></p>
+<p style="font-size:20px"> <strong> From <?= $dataEvent->from_datetime ?> to <?= $dataEvent->to_datetime ?> </strong> </p>
+
 <p><?= $dataEvent->description ?></p>
+<br>
 
 <?php foreach($dataTeams as $model): ?>
     <?php $seats_left = $model->team_size - Registration::find()->where(['team_id' => $model->id])->count();?>
@@ -38,7 +40,14 @@ $this->title = "Event - Swachh Amrita"
                     <font size="10">  <?= $seats_left ?></font>
                     <p> Seats left</p>
                 </div>
-                <?= ($seats_left and !$dataEvent->close_reg) ? Html::a('Register', ['/event/register','id'=>$model->id], ['class' => 'btn btn-success btn-group-justified']):'';?>
+                <?= ($seats_left and !$dataEvent->close_reg) ? Html::a('Register', ['/event/register','id'=>$model->id], [                
+               
+                    'class' => 'btn btn-success btn-group-justified ',
+                    'data' => [
+                        'confirm' => 'Are you sure you want to register for this event?',
+                        'method' => 'post',
+                    ],
+                    ]) :'';?>
             </div>
         </div>
     </div>

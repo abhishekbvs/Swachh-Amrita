@@ -59,7 +59,7 @@ $this->title = 'Dashboard - Volunteer'
                         <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-primary  btn-group-justified']);?>
                         </div>
                         <div class = "row" style="padding:5px;">
-                            <?= Html::a('Take Attendance', ['/team/view','id'=>$team->id], ['class' => 'btn btn-success btn-group-justified']);?>
+                            <?= Html::a('Take Attendance', ['/event/attendance','id'=>$team->id], ['class' => 'btn btn-success btn-group-justified']);?>
                         </div>
                     </div>
                 </div>

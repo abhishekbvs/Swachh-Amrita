@@ -42,7 +42,7 @@ $this->title = 'Dashboard - Participant'
         <br>  
         <?php foreach($dataRegs as $dataReg) :
                         $event = Event::find()->where(['id'=> $dataReg->event_id])->one();
-                        $team = Team::find()->where(['id'=>$dataReg->event_id])->one();
+                        $team = Team::find()->where(['id'=>$dataReg->team_id])->one();
                         ?>
             <div class = "panel panel-success"> 
 
@@ -61,7 +61,13 @@ $this->title = 'Dashboard - Participant'
                         <?= Html::a('Team Details', ['/event/team','id'=>$team->id], ['class' => 'btn btn-primary btn-group-justified']);?>
                         </div>
                         <div class = "row" style="padding:5px;">
-                            <?= Html::a('Backout', ['/event/dereg','id'=>$event->id], ['class' => 'btn btn-danger btn-group-justified']);?>
+                            <?= Html::a('Backout', ['/event/backout','id'=>$dataReg->id], [
+                                'class' => 'btn btn-danger btn-group-justified ',
+                                'data' => [
+                                    'confirm' => 'Are you sure you want to de-register for this event?',
+                                    'method' => 'post',
+                                ],
+                            ]) ?>
                         </div>
                     </div>
                 </div>           

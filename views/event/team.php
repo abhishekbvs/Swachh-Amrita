@@ -64,48 +64,6 @@ use kartik\switchinput\SwitchInput;
                 return $user->roll_no;
             }
         ],
-        [
-            'attribute' => 'Check In',
-            'format' => 'raw',
-            'value' => function($data){
-                    return SwitchInput::widget([
-                        'name' => 'Check In',
-                        'pluginEvents' => [
-                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
-                        ],
-                        'pluginOptions' => [
-                            'size' => 'mini',
-                            'onColor' => 'success',
-                            'offColor' => 'danger',
-                            'onText' => 'Yes',
-                            'offText' => 'No',
-                        ],
-                        'value' => $data->check_in ? TRUE : FALSE,
-                    ]);
-                }
-           
-        ],
-        [
-            'attribute' => 'Check Out',
-            'format' => 'raw',
-            'value' => function($data){
-                    return SwitchInput::widget([
-                        'name' => 'Check Out',
-                        'pluginEvents' => [
-                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
-                        ],
-                        'pluginOptions' => [
-                            'size' => 'mini',
-                            'onColor' => 'success',
-                            'offColor' => 'danger',
-                            'onText' => 'Yes',
-                            'offText' => 'No',
-                        ],
-                        'value' => $data->check_in ? TRUE : FALSE,
-                    ]);
-                }
-           
-        ],
     ]
         
 ]);

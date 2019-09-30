@@ -77,15 +77,7 @@ $this->title = $model->title;
         </div>
      </div>
      <?php                 
-
-        Modal::begin([
-            'header' => '<h4>Team Members</h4>',
-            'id'     => 'model',
-            'size'   => 'model-lg',
-        ]);
-
-        echo "<div id='modalContent'></div>";
-
+        Modal::begin(['id' =>'modal']);
         Modal::end();
 
     ?>

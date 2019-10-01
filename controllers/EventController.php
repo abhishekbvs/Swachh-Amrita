@@ -351,6 +351,21 @@ class EventController extends Controller
         }
     }
 
+
+    public function actionCheckIn($id)
+    {
+        $modelReg = Registration::findOne($id);
+        $modelReg->check_in = new \yii\db\Expression('NOW()');
+        $modelReg->save();
+    }
+
+    public function actionCheckOut($id)
+    {
+        $modelReg = Registration::findOne($id);
+        $modelReg->check_out = new \yii\db\Expression('NOW()');
+        $modelReg->save();
+    }
+
     public function actionPublish($id)
     {
         $model = $this->findModel($id);

@@ -65,7 +65,7 @@ $this->title = "Home - Swachh Amrita"
                                         return  '<h4><span class="label label-danger">CLOSED</span></h4>';
                                     }
                                     else{
-                                       return '<h4><span class="label label-success">OPENED</span></h4>';
+                                       return '<h4><span class="label label-success">OPEN</span></h4>';
                                     }
                             },
                             'contentOptions'=>[ 'style'=>'width: 50px'],

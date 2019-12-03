@@ -12,6 +12,7 @@ There are different roles in the web application namely Event Managers, Voluntee
 It is easy to manage data and event managers will get a clear picture on the registration status and it has many more benefits like events are scheduled neatly, registration status is shown to the students and they can revert their seat anytime until registrations closes. Teams can be formed as needed and essentially the history of all the events, registrations and participants are recorded securely and can be used for any purposes later on. 
 
 ## How it Works ?
+Go through this [link](https://create.piktochart.com/output/41090810-swachh-amrita) for the presentation on this project.
 
 #### Pages
 There are different pages in the web application and each of them have their own functionalities.

@@ -11,4 +11,59 @@ There are different roles in the web application namely Event Managers, Voluntee
 
 It is easy to manage data and event managers will get a clear picture on the registration status and it has many more benefits like events are scheduled neatly, registration status is shown to the students and they can revert their seat anytime until registrations closes. Teams can be formed as needed and essentially the history of all the events, registrations and participants are recorded securely and can be used for any purposes later on. 
 
-#Installation Instructions
+## How it Works ?
+
+#### Pages
+There are different pages in the web application and each of them have their own functionalities.
+
+##### Home Page
+In the home page, we can see all the published events with their titles, date and time, and registrations status and will be redirected to a particular event page after clicking on the title of the event
+
+##### About Page
+The aim of the project is described and the ways people can help us to support and improve this project.
+
+##### Contact Page
+If people have any queries, they need to fill this form and submit it. Event Managers, volunteers who are interested can contact the admin and can get their accounts.
+
+For now, we have limeted this application for our college students. So, they can fill their details and submit it. If all the validations are passed, their account is created and redirected to the sign-in page.
+
+##### Sign-in Page
+Users can sign in with their credentials and after validation, they will be redirected to their respective dashboards
+
+##### Event Page
+The event page has all the details of the event and team details are shown with total seats and seats left. Participants can register by clicking on a particular team’s register button and can also see the team details.
+
+##### Team Page
+Team page has all the details and volunteers of the team. Registered members of that particular team are also shown. Particular user can choose a team and register if the 
+
+#### Dashboards
+According to their role, the views of the dashboard are changed. Basically, the profile of the logged-in user is shown with their complete details and on the other side, they can see their privileges available to them. Every user can edit their own details and can reset their password if needed.
+
+##### Administrator Dashboard
+The administrator will get all the unresolved queries and can mark them resolved. User details can be seen and Administrator can assign or change roles of a particular user as needed.
+
+##### Manage Users
+Administrator can see the details of the user after clicking on the view button in Admin dashboard page. Administrator can update the details of a user, delete a user and can change the role of a user 
+
+##### Event Manager Dashboard
+Event Manager can create an event and can view the events created by him. They can manage the events like updating, publishing and ending the Event. They can see the overall registrations statistics and can close registrations whenever it is necessary.
+
+##### Events Creation
+Event Managers create events by filling the form. Event title, from date time and to date time, description and can add teams filling team, place details and size as needed. Volunteers can be assigned to each team from the volunteer's list.
+
+##### Events Management
+View the Details of the event
+Update Event
+Publish / Unpublish Events
+Close / Open Registrations
+End / Reopen Event
+
+##### Volunteer Dashboard
+Volunteers can see all the teams that he was assigned by a particular event managers Volunteer can see his team details and can take attendance of the participants in his team.
+
+Volunteers can check-in and check-out the participants in Volunteers Attendance Page.
+
+##### Participant Dashboard
+Participants can view all the events that are registered by him. They can see the event details, backout from an event if he is not able to join before the registrations close.
+
+## Installation Instructions

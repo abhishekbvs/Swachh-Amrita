@@ -109,7 +109,7 @@ class UserController extends Controller
         return $this->render('event_manager_dash',['dataEvents'=>$eventsModel]);
     }
 
-    public function actionDashVolunteer()
+    public function actionDashStudentLead()
     {    
         $teams = Volunteer::find()->select(['team_id'])->where(['user_id' => Yii::$app->user->getId()])->all();
         $teamsModel = [];
@@ -119,7 +119,7 @@ class UserController extends Controller
         return $this->render('volunteer_dash',['dataTeams'=>$teamsModel]);
     }
 
-    public function actionDashParticipant()
+    public function actionDashVolunteer()
     {
         $dataRegs  = Registration::find()->where(['user_id'=>Yii::$app->user->getId()])->all();
         return $this->render('participant_dash',['dataRegs'=>$dataRegs]);

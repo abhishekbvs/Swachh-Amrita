@@ -22,6 +22,7 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <title>Heal it Up</title>
     <?php $this->head() ?>
     <link rel="shortcut icon" href="<?php echo Yii::$app->request->baseUrl; ?>/favicon.png" type="image/png" />
 </head>
@@ -31,7 +32,7 @@ AppAsset::register($this);
 <div class="wrap">
     <?php
     NavBar::begin([
-        'brandLabel' => Yii::$app->name,
+        'brandLabel' => 'Heal it Up',
         'brandUrl' => Yii::$app->homeUrl,
         'options' => [
             'class' => 'navbar-inverse navbar-fixed-top',
@@ -49,11 +50,11 @@ AppAsset::register($this);
                 Yii::$app->user->can('event-manager') ? (
                     ['label' => 'Dashboard', 'url' => ['/user/dash-event-manager']]
                 ) : (
-                    Yii::$app->user->can('volunteer') ? (
-                        ['label' => 'Dashboard', 'url' => ['/user/dash-volunteer']]
+                    Yii::$app->user->can('student-lead') ? (
+                        ['label' => 'Dashboard', 'url' => ['/user/dash-student-lead']]
                     ) :(
-                        Yii::$app->user->can('participant') ? (
-                            ['label' => 'Dashboard', 'url' => ['/user/dash-participant']]
+                        Yii::$app->user->can('volunteer') ? (
+                            ['label' => 'Dashboard', 'url' => ['/user/dash-volunteer']]
                         ) : (['label' => 'Signup', 'url' => ['/user/create']])
                     )
                 )
@@ -87,7 +88,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; Team One EVS <?= date('Y')?><?= Html::a('Contact us for any queries', ['/site/contact'], ['class' => 'btn btn-link']);?></p>
+        <p class="pull-left">&copy; Team Illuminati | SE Project <?= date('Y')?><?= Html::a('Contact us for any queries', ['/site/contact'], ['class' => 'btn btn-link']);?></p>
         <div class="pull-right"><img class="logo-amrita" src="<?php echo Yii::$app->request->baseUrl; ?>/images/amrita.png" type="image/png" /></div>
         <div class="pull-right"><img class="logo-bharath" src="<?php echo Yii::$app->request->baseUrl; ?>/images/swachh-bharath.png" type="image/png" /></div>
     </div>

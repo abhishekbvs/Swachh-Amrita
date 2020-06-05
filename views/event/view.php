@@ -102,14 +102,14 @@ $this->title = $model->title;
                
             </div> 
             <div class ="col-md-6">
-            <h4>Volunteers</h4>
+            <h4>Student Leads</h4>
                 <?= GridView::widget([
                     'layout' => "{items}\n{pager}",
                     'dataProvider' => $modelsVolunteer[$indexTeam],
                     'columns' => [
                         ['class' => 'yii\grid\SerialColumn'],
                         [
-                            'label' => "Volunteer Name",
+                            'label' => "Student Lead Name",
                             'value' => function ($data){
                                 $user = User::find()->select(['name'])->where(['id' => $data->user_id])->one();
                                 return $user->name;

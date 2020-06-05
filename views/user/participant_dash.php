@@ -7,7 +7,7 @@ use app\models\Team;
 use app\models\User;
 
 $user = User::find()->where(['id'=>Yii::$app->user->getId()])->one();
-$this->title = 'Dashboard - Participant'
+$this->title = 'Dashboard - Volunteer'
 ?>
 
 <div class = row>   
@@ -16,7 +16,7 @@ $this->title = 'Dashboard - Participant'
             <div class="panel-heading">
                 <div class ="row" style="padding:0px 10px 0px;">
                     <h4 class="pull-left">Profile</h4>
-                    <h4 class="pull-right"><span class="label label-default">Participant</span></h4>
+                    <h4 class="pull-right"><span class="label label-default">Volunteer</span></h4>
                 </div>
             </div>
             <div class="panel-body">

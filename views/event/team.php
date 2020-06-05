@@ -19,7 +19,7 @@ use kartik\switchinput\SwitchInput;
             'columns' => [
                 ['class' => 'yii\grid\SerialColumn'],
                 [
-                    'label' => "Volunteer Name",
+                    'label' => "Student Lead Name",
                     'value' => function ($data){
                         $user = User::find()->select(['name'])->where(['id' => $data->user_id])->one();
                         return $user->name;

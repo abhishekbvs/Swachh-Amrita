@@ -87,7 +87,7 @@ class UserForm extends Model
         $user = $user->save() ? $user : null;
         $auth = new DbManager;
         $auth->init();
-        $role = $auth->getRole('participant');
+        $role = $auth->getRole('volunteer');
         $auth->assign($role, $user->id);
        
         return $user;

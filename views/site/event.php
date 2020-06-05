@@ -7,10 +7,10 @@ $this->title = "Event - Swachh Amrita"
 ?>
 <div class = "row" style="padding:0px 10px 0px;">
     <h1 class="pull-left"><?= $dataEvent->title ?></h1>
-    <h3 class="pull-right"><?= $dataEvent->close_reg ? '<span class="label label-danger">CLOSED</span>' : '<span class="label label-success">OPENED</span>';?></h3>
+    <h3 class="pull-right"><?= $dataEvent->close_reg ? '<strong>Registrations: </strong><span class="label label-danger">CLOSED</span>' : '<strong>Registrations: </strong><span class="label label-success">OPENED</span>';?></h3>
 </div>
 
-<p style="font-size:20px"> <strong> From <?= $dataEvent->from_datetime ?> to <?= $dataEvent->to_datetime ?> </strong> </p>
+<p style="font-size:20px"> From  <strong> <?= $dataEvent->from_datetime ?>  </strong> to <strong><?= $dataEvent->to_datetime ?> </strong> </p>
 
 <p><?= $dataEvent->description ?></p>
 <br>
@@ -21,8 +21,8 @@ $this->title = "Event - Swachh Amrita"
     <div class = "panel panel-primary" style= "<?= $seats_left ? "background-color: #E5FFCC;": "background-color: #fc888b" ?>" >
         <div class = "row"  style="padding:10px;" >
             <div class = "col-md-6">
-                <h2><?= $model->team_name ?><h2>
-                <h4><?= $model->place_name ?></h4>
+                <h4><strong>Team Name: </strong><?= $model->team_name ?><h5>
+                <h5><strong>Team Area: </strong><?= $model->place_name ?></h5>
                 <p><?= $model->description ?></p>
             </div>
             <div class = "col-md-3">

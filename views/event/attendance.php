@@ -49,7 +49,7 @@ use kartik\switchinput\SwitchInput;
                     return SwitchInput::widget([
                         'name' => 'Check In',
                         'pluginEvents' => [
-                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
+                            // 'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
                         ],
                         'pluginOptions' => [
                             'size' => 'mini',
@@ -70,7 +70,7 @@ use kartik\switchinput\SwitchInput;
                     return SwitchInput::widget([
                         'name' => 'Check Out',
                         'pluginEvents' => [
-                            'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
+                            // 'switchChange.bootstrapSwitch' => "function(e){sendCheckInRequest(e.currentTarget.checked, $data->user_id);}"
                         ],
                         'pluginOptions' => [
                             'size' => 'mini',

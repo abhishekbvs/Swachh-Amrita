@@ -329,7 +329,7 @@ class EventController extends Controller
                 $model->event_id = $modelTeam->event_id;
                 $model->created_at = new \yii\db\Expression('NOW()');
                 $model->save();
-                return $this->redirect(['/user/dash-participant']);
+                return $this->redirect(['/user/dash-volunteer']);
             }
             else{
                 return $this->redirect(['/site/event','id'=>$modelTeam->event_id]);
@@ -337,7 +337,7 @@ class EventController extends Controller
 
         }
         else {
-            return $this->redirect(['/user/dash-participant']);
+            return $this->redirect(['/user/dash-volunteer']);
         }
         
     }
@@ -347,7 +347,7 @@ class EventController extends Controller
         $modelReg = Registration::findOne($id);
         if($modelReg->user_id = Yii::$app->user->getId()){
             $modelReg->delete();
-            return $this->redirect(['/user/dash-participant']);
+            return $this->redirect(['/user/dash-volunteer']);
         }
     }
 

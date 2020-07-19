@@ -68,3 +68,7 @@ Volunteers can check-in and check-out the participants in Volunteers Attendance 
 Participants can view all the events that are registered by him. They can see the event details, backout from an event if he is not able to join before the registrations close.
 
 ## Installation Instructions
+1. Place the folder in Apache root directory
+2. Install the Packages using composer
+3. Create a DB and dump the provided sql file for sample data
+4. Now the site will be live at `http://localhost/swachh-amrita/web/`
